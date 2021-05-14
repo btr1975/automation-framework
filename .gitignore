@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# No JetBrains
+.idea/
+
+# No files starting with tilde
+~*
+
+# No files starting with temp
+temp*

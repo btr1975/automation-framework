@@ -1,0 +1,11 @@
+# By default all non specific files as text
+# With LF endings
+* text=auto eol=lf
+
+# Set files as binary
+*.fxs binary
+*.png binary
+*.gif binary
+*.pdf binary
+*.jar binary
+*.tar.gz binary
