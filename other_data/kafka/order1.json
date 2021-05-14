@@ -1,0 +1,1 @@
+{ "servings": [ { "item": "Fries", "size": "2" }, { "item": "Burger", "size": "3" } ], "delivery": { "street": "Orange St", "number": "55", "city": "London" } }

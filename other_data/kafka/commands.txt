@@ -1,0 +1,15 @@
+// Start the entire platform
+docker-compose up -d
+
+// Produce the orders
+( docker exec -i broker-1 kafka-console-producer --broker-list broker-1:29092 --topic orders ) < order1.json
+
+
+// Produce some random text
+( docker exec -i broker-1 kafka-console-producer --broker-list broker-1:29092 --topic orders ) < random.txt
+
+// Consume all messages
+docker exec -i broker-1 kafka-console-consumer --bootstrap-server broker-1:29092 --topic orders --from-beginning
+
+// Stop all docker containers ( Warning: all progress will be lost )
+docker-compose down
