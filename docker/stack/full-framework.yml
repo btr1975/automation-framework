@@ -182,6 +182,19 @@ services:
                 constraints:
                     - "node.labels.node.procpower==high"
 
+    elk:
+        image: sebp/elk
+        hostname: elk
+        container_name: elk
+        ports:
+            - "5601:5601"
+            - "9200:9200"
+            - "5044:5044"
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"
+
     vault:
         image: vault:latest
         hostname: vault
