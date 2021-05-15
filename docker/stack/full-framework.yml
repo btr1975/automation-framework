@@ -17,6 +17,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 256M
 
     broker-1:
         image: confluentinc/cp-server:latest
@@ -49,6 +52,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.kafka==broker"
+            resources:
+                limits:
+                    memory: 2G
 
     broker-2:
         image: confluentinc/cp-server:latest
@@ -81,6 +87,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.kafka==broker"
+            resources:
+                limits:
+                    memory: 2G
 
     broker-3:
         image: confluentinc/cp-server:latest
@@ -113,6 +122,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.kafka==broker"
+            resources:
+                limits:
+                    memory: 2G
 
     schema-registry:
         image: confluentinc/cp-schema-registry:latest
@@ -129,6 +141,10 @@ services:
         environment:
             SCHEMA_REGISTRY_HOST_NAME: schema-registry
             SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
 
     control-center:
         image: confluentinc/cp-enterprise-control-center:latest
@@ -158,6 +174,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 2G
 
     rest-proxy:
         image: confluentinc/cp-kafka-rest:latest
@@ -181,6 +200,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 256M
 
     elk:
         image: sebp/elk
@@ -218,6 +240,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 128M
 
 volumes:
     vault-logs:
