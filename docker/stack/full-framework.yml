@@ -194,6 +194,9 @@ services:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 8G
 
     vault:
         image: vault:latest
