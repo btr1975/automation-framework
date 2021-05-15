@@ -24,4 +24,4 @@ remove_volumes:
 	docker volume rm e-trade-framework_vault-file
 	docker volume rm e-trade-framework_vault-logs
 
-clean: remove_framework remove_volumes
+clean: remove_framework
