@@ -1,0 +1,204 @@
+---
+version: '3.8'
+services:
+    zookeeper:
+        image: confluentinc/cp-zookeeper:latest
+        hostname: zookeeper
+        container_name: zookeeper
+        ports:
+            -   target: 2181
+                published: 2181
+                protocol: tcp
+                mode: ingress
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"
+
+    broker-1:
+        image: confluentinc/cp-server:latest
+        hostname: broker-1
+        container_name: broker-1
+        depends_on:
+            - zookeeper
+        ports:
+            -   target: 9092
+                published: 9092
+                protocol: tcp
+                mode: ingress
+        environment:
+            KAFKA_BROKER_ID: 1
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://:9092
+            KAFKA_LISTENERS: PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://:9092
+            KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+            KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+            CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker-1:29092
+            CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+            CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+            CONFLUENT_METRICS_ENABLE: 'true'
+            CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+            CONFLUENT_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.kafka==broker"
+
+    broker-2:
+        image: confluentinc/cp-server:latest
+        hostname: broker-2
+        container_name: broker-2
+        depends_on:
+            - zookeeper
+        ports:
+            -   target: 9093
+                published: 9093
+                protocol: tcp
+                mode: ingress
+        environment:
+            KAFKA_BROKER_ID: 2
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-2:29093,PLAINTEXT_HOST://:9093
+            KAFKA_LISTENERS: PLAINTEXT://broker-2:29093,PLAINTEXT_HOST://:9093
+            KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+            KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+            CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker-2:29093
+            CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+            CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+            CONFLUENT_METRICS_ENABLE: 'true'
+            CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+            CONFLUENT_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.kafka==broker"
+
+    broker-3:
+        image: confluentinc/cp-server:latest
+        hostname: broker-3
+        container_name: broker-3
+        depends_on:
+            - zookeeper
+        ports:
+            -   target: 9094
+                published: 9094
+                protocol: tcp
+                mode: ingress
+        environment:
+            KAFKA_BROKER_ID: 3
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-3:29094,PLAINTEXT_HOST://:9094
+            KAFKA_LISTENERS: PLAINTEXT://broker-3:29094,PLAINTEXT_HOST://:9094
+            KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+            KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+            CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker-3:29094
+            CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+            CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+            CONFLUENT_METRICS_ENABLE: 'true'
+            CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+            CONFLUENT_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.kafka==broker"
+
+    schema-registry:
+        image: confluentinc/cp-schema-registry:latest
+        hostname: schema-registry
+        container_name: schema-registry
+        depends_on:
+            - zookeeper
+            - broker-1
+        ports:
+            -   target: 8081
+                published: 8081
+                protocol: tcp
+                mode: ingress
+        environment:
+            SCHEMA_REGISTRY_HOST_NAME: schema-registry
+            SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+
+    control-center:
+        image: confluentinc/cp-enterprise-control-center:latest
+        hostname: control-center
+        container_name: control-center
+        ports:
+            -   target: 9021
+                published: 9021
+                protocol: tcp
+                mode: ingress
+        depends_on:
+            - zookeeper
+            - broker-1
+            - broker-2
+            - broker-3
+            - schema-registry
+        environment:
+            CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker-1:9092,broker-2:9093,broker-3:9094'
+            CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+            CONTROL_CENTER_REPLICATION_FACTOR: 1
+            CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+            CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+            CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+            PORT: 9021
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"
+
+    rest-proxy:
+        image: confluentinc/cp-kafka-rest:latest
+        ports:
+            -   target: 8082
+                published: 8082
+                protocol: tcp
+                mode: ingress
+        depends_on:
+            - zookeeper
+            - broker-1
+            - schema-registry
+        hostname: rest-proxy
+        container_name: rest-proxy
+        environment:
+            KAFKA_REST_HOST_NAME: rest-proxy
+            KAFKA_REST_BOOTSTRAP_SERVERS: 'broker-1:29092,broker-2:9093,broker-3:9094'
+            KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+            KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"
+
+    vault:
+        image: vault:latest
+        hostname: vault
+        container_name: vault
+        ports:
+            -   target: 8200
+                published: 8200
+                protocol: tcp
+                mode: ingress
+        cap_add:
+            - IPC_LOCK
+        environment:
+            VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
+        volumes:
+            - ./vault:/vault/logs
+            - ./vault:/vault/file
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"

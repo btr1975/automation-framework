@@ -1,16 +1,16 @@
 ---
 version: '3.7'
 services:
-    dev-vault:
+    vault:
         image: vault:latest
-        container_name: dev-vault
+        hostname: vault
+        container_name: vault
         ports:
-            - "10.0.0.102:8200:8200"
+            - "8200:8200"
         cap_add:
             - IPC_LOCK
         environment:
-            VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}},
-"default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
+            VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
         volumes:
             - ./vault:/vault/logs
             - ./vault:/vault/file
