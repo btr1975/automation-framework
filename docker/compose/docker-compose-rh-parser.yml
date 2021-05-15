@@ -1,0 +1,15 @@
+---
+version: '3.7'
+services:
+    genie-kafka-docker-2:
+        build:
+            context: ../dockerfile
+            dockerfile: Dockerfile-rh-parser
+        image: docker_app_run_rh:latest
+        hostname: genie-kafka-docker-rh
+        container_name: genie-kafka-docker-rh
+        extra_hosts:
+            - "broker-1:10.0.0.101"
+            - "broker-2:10.0.0.101"
+            - "broker-3:10.0.0.101"
+        restart: on-failure
