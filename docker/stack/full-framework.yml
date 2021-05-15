@@ -220,6 +220,18 @@ services:
                 limits:
                     memory: 8G
 
+    genie-kafka-docker-rh:
+        image: docker_app_run_rh:latest
+        hostname: genie-kafka-docker-rh
+        container_name: genie-kafka-docker-rh
+        deploy:
+            placement:
+                constraints:
+                    - "node.labels.node.procpower==high"
+            resources:
+                limits:
+                    memory: 1G
+
     vault:
         image: vault:latest
         hostname: vault

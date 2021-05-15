@@ -1,7 +1,7 @@
 ---
 version: '3.7'
 services:
-    genie-kafka-docker-2:
+    genie-kafka-docker-rh:
         build:
             context: ../dockerfile
             dockerfile: Dockerfile-rh-parser

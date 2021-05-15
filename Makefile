@@ -4,7 +4,7 @@
 #
 
 .PHONY: all clean deploy_framework check_framework_running check_framework_replicas remove_framework \
-        remove_volumes
+        remove_volumes build_genie_parser
 
 all: deploy_framework
 
@@ -23,5 +23,8 @@ remove_framework:
 remove_volumes:
 	docker volume rm e-trade-framework_vault-file
 	docker volume rm e-trade-framework_vault-logs
+
+build_genie_parser:
+	docker-compose -f docker/compose/docker-compose-rh-parser.yml build
 
 clean: remove_framework
