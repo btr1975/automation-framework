@@ -196,9 +196,13 @@ services:
         environment:
             VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
         volumes:
-            - ./vault:/vault/logs
-            - ./vault:/vault/file
+            - "vault-logs:/vault/logs"
+            - "vault-file:/vault/file"
         deploy:
             placement:
                 constraints:
                     - "node.labels.node.procpower==high"
+
+volumes:
+    vault-logs:
+    vault-file:
