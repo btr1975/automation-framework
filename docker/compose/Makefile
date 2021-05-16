@@ -5,8 +5,8 @@
 
 .PHONY: all clean deploy_nautobot start_nautobot stop_nautobot rm_nautobot deploy_elk start_elk stop_elk \
         rm_elk deploy_vault start_vault stop_vault rm_vault deploy_kafka start_kafka stop_kafka \
-        rm_kafka deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser \
-        deploy_all start_all stop_all rm_all
+        rm_kafka deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser check_volumes \
+        deploy_all start_all stop_all rm_all remove_nautobot_volumes remove_vault_volumes
 
 all: deploy_all
 
@@ -17,6 +17,8 @@ start_all: start_nautobot start_elk start_kafka start_rh_parser start_vault
 stop_all: stop_nautobot stop_elk stop_kafka stop_rh_parser stop_vault
 
 rm_all: rm_nautobot rm_elk rm_kafka rm_rh_parser rm_vault
+
+remove_all_volumes: remove_nautobot_volumes remove_vault_volumes
 
 deploy_nautobot:
 	docker-compose -f docker-compose-nautobot-latest.yml up -d
@@ -29,6 +31,10 @@ stop_nautobot:
 
 rm_nautobot:
 	docker-compose -f docker-compose-nautobot-latest.yml rm
+
+remove_nautobot_volumes:
+	docker volume rm compose_nautobot-postgres-compose
+	docker volume rm compose_nautobot-redis-compose
 
 deploy_elk:
 	docker-compose -f docker-compose-elk-stack-latest.yml up -d
@@ -53,6 +59,10 @@ stop_vault:
 
 rm_vault:
 	docker-compose -f docker-compose-vault-latest.yml rm
+
+remove_vault_volumes:
+	docker volume rm compose_vault-file-compose
+	docker volume rm compose_vault-logs-compose
 
 deploy_kafka:
 	docker-compose -f docker-compose-kafka-latest.yml up -d
@@ -80,5 +90,8 @@ rm_rh_parser:
 
 check_stats:
 	docker stats
+
+check_volumes:
+	docker volume ls
 
 clean: stop_all rm_all

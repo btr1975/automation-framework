@@ -7,6 +7,8 @@ E-Trading Network Automation Framework
 
 * The Makefile located in docker/compose is used for individual architecture pieces
 
+* **Compose** does not have memory limits
+
 ### Possible Special Need for ELK
 
 * You may need to run this command on the host system
