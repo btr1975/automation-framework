@@ -1,0 +1,16 @@
+---
+version: '3.7'
+services:
+    nautobot:
+        image: networktocode/nautobot-lab:latest
+        hostname: nautobot
+        container_name: nautobot
+        ports:
+            - "8000:8000"
+        volumes:
+            - "nautobot-redis-compose:/var/lib/redis"
+            - "nautobot-postgres-compose:/var/lib/postgresql/12/main"
+
+volumes:
+    nautobot-redis-compose:
+    nautobot-postgres-compose:

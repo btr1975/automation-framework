@@ -12,5 +12,9 @@ services:
         environment:
             VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
         volumes:
-            - ./vault:/vault/logs
-            - ./vault:/vault/file
+            - "vault-logs-compose:/vault/logs"
+            - "vault-file-compose:/vault/file"
+
+volumes:
+    vault-logs-compose:
+    vault-file-compose:
