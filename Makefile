@@ -9,25 +9,25 @@
 all: deploy_framework
 
 deploy_framework:
-	docker stack deploy -c ./docker/stack/full-framework.yml e-trade-framework
+	docker stack deploy -c ./docker/stack/full-framework.yml automation-framework
 
 check_framework_running:
-	docker stack ps e-trade-framework
+	docker stack ps automation-framework
 
 check_framework_replicas:
-	docker stack services e-trade-framework
+	docker stack services automation-framework
 
 check_stats:
 	docker stats
 
 remove_framework:
-	docker stack rm e-trade-framework
+	docker stack rm automation-framework
 
 remove_volumes:
-	docker volume rm e-trade-framework_vault-file
-	docker volume rm e-trade-framework_vault-logs
-	docker volume rm e-trade-framework_nautobot-redis
-	docker volume rm e-trade-framework_nautobot-postgres
+	docker volume rm automation-framework_vault-file
+	docker volume rm automation-framework_vault-logs
+	docker volume rm automation-framework_nautobot-redis
+	docker volume rm automation-framework_nautobot-postgres
 
 build_genie_parser:
 	docker-compose -f docker/compose/docker-compose-rh-parser.yml build
