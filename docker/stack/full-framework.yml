@@ -209,9 +209,18 @@ services:
         hostname: elk
         container_name: elk
         ports:
-            - "5601:5601"
-            - "9200:9200"
-            - "5044:5044"
+            -   target: 5601
+                published: 5601
+                protocol: tcp
+                mode: ingress
+            -   target: 9200
+                published: 9200
+                protocol: tcp
+                mode: ingress
+            -   target: 5044
+                published: 5044
+                protocol: tcp
+                mode: ingress
         deploy:
             placement:
                 constraints:
@@ -261,7 +270,10 @@ services:
         hostname: nautobot
         container_name: nautobot
         ports:
-            - "8000:8000"
+            -   target: 8000
+                published: 8000
+                protocol: tcp
+                mode: ingress
         volumes:
             - "nautobot-redis:/var/lib/redis"
             - "nautobot-postgres:/var/lib/postgresql/12/main"
