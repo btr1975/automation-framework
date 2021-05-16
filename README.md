@@ -1,5 +1,5 @@
-# e-trading-net-automation-framework
-E-Trading Network Automation Framework
+# automation-framework
+Automation Framework
 
 ## General Information
 
