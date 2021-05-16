@@ -1,7 +1,13 @@
 # e-trading-net-automation-framework
 E-Trading Network Automation Framework
 
-### Possible Speacial Need for ELK
+## General Information
+
+* The base Makefile is meant to be used with Docker Swarm
+
+* The Makefile located in docker/compose is used for individual architecture pieces
+
+### Possible Special Need for ELK
 
 * You may need to run this command on the host system
 
