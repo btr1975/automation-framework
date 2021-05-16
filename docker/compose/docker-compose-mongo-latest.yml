@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+    mongo:
+        image: mongo
+        hostname: mongo
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+        volumes:
+            - "mongo-data-db-compose:/data/db"
+            - "mongo-data-configdb-compose:/data/configdb"
+
+    mongo-express:
+        image: mongo-express
+        hostname: mongo-express
+        container_name: mongo-express
+        ports:
+            - "8081:8081"
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+volumes:
+    mongo-data-db-compose:
+    mongo-data-configdb-compose:
