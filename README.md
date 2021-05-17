@@ -43,6 +43,8 @@ docker exec -it <container-name> nautobot-server createsuperuser
 | Nautobot | "Source of truth" |
 | A Genie Parser | Something to parse show commands |
 
+![Automation Framework Swarm](diagrams/automation_framework_swarm.png)
+
 ### What is Available in Compose
 
 | ARCHITECTURE | USED FOR |
@@ -55,3 +57,4 @@ docker exec -it <container-name> nautobot-server createsuperuser
 | MongoDB | Document dB |
 | Batfish | Modeling |
 
+![Automation Framework Compose](diagrams/automation_framework_compose.png)

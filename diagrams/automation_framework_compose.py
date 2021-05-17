@@ -8,8 +8,6 @@ from diagrams.elastic.elasticsearch import Kibana
 from diagrams.elastic.elasticsearch import Logstash
 from diagrams.onprem.container import Docker
 from diagrams.programming.language import Python
-from diagrams.programming.language import Java
-from diagrams.programming.language import Nodejs
 from diagrams.generic.storage import Storage
 from diagrams.onprem.database import Mongodb
 
