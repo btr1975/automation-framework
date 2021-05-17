@@ -11,6 +11,7 @@
         deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser \
         deploy_mogodb start_mogodb stop_mogodb rm_mogodb remove_mogodb_volumes \
         deploy_batfish start_batfish stop_batfish rm_batfish remove_batfish_volumes \
+        deploy_influxdb start_influxdb stop_influxdb rm_influxdb remove_influxdb_volumes \
         check_volumes check_running \
         deploy_all start_all stop_all rm_all
 
@@ -124,6 +125,22 @@ rm_batfish:
 
 remove_batfish_volumes:
 	docker volume rm compose_batfish-data-compose
+
+deploy_influxdb:
+	docker-compose -f docker-compose-influxdb-2.0.4.yml up -d
+
+start_influxdb:
+	docker-compose -f docker-compose-influxdb-2.0.4.yml start
+
+stop_influxdb:
+	docker-compose -f docker-compose-influxdb-2.0.4.yml stop
+
+rm_influxdb:
+	docker-compose -f docker-compose-influxdb-2.0.4.yml rm
+
+remove_influxdb_volumes:
+	docker volume rm compose_influxdb-var-lib-influxdb2-compose
+	docker volume rm compose_influxdb-etc-influxdb2-compose
 
 check_stats:
 	docker stats

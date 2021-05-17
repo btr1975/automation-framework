@@ -10,6 +10,7 @@ from diagrams.onprem.container import Docker
 from diagrams.programming.language import Python
 from diagrams.generic.storage import Storage
 from diagrams.onprem.database import Mongodb
+from diagrams.onprem.database import Influxdb
 
 
 def main():
@@ -67,6 +68,7 @@ def main():
                     kibana,
                     logstash
                 ]
+                infulxdb = Influxdb('Influxdb\ntcp:8086')
 
         with Cluster('Inventory and Connectivity'):
             with Cluster('Inventory'):
@@ -89,6 +91,9 @@ def main():
 
         nautobot - logstash
         python_container - logstash
+
+        nautobot - infulxdb
+        python_container - infulxdb
 
         python_container - mongodb
 

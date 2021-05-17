@@ -56,5 +56,6 @@ docker exec -it <container-name> nautobot-server createsuperuser
 | A Genie Parser | Something to parse show commands |
 | MongoDB | Document dB |
 | Batfish | Modeling |
+| Influxdb | Series dB |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
