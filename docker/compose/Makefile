@@ -1,6 +1,6 @@
 # This Makefile is to run compose for the framework
 # Author: Benjamin P. Trachtenberg
-# Version: 2021.5.16.001
+# Version: 2021.5.17.001
 #
 
 .PHONY: all clean \
@@ -12,6 +12,7 @@
         deploy_mogodb start_mogodb stop_mogodb rm_mogodb remove_mogodb_volumes \
         deploy_batfish start_batfish stop_batfish rm_batfish remove_batfish_volumes \
         deploy_influxdb start_influxdb stop_influxdb rm_influxdb remove_influxdb_volumes \
+        deploy_grafana start_grafana stop_grafana rm_grafana \
         check_volumes check_running \
         deploy_all start_all stop_all rm_all
 
@@ -141,6 +142,18 @@ rm_influxdb:
 remove_influxdb_volumes:
 	docker volume rm compose_influxdb-var-lib-influxdb2-compose
 	docker volume rm compose_influxdb-etc-influxdb2-compose
+
+deploy_grafana:
+	docker-compose -f docker-compose-grafana-latest.yml up -d
+
+start_grafana:
+	docker-compose -f docker-compose-grafana-latest.yml start
+
+stop_grafana:
+	docker-compose -f docker-compose-grafana-latest.yml stop
+
+rm_grafana:
+	docker-compose -f docker-compose-grafana-latest.yml rm
 
 check_stats:
 	docker stats

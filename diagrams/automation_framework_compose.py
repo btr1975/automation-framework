@@ -11,6 +11,7 @@ from diagrams.programming.language import Python
 from diagrams.generic.storage import Storage
 from diagrams.onprem.database import Mongodb
 from diagrams.onprem.database import Influxdb
+from diagrams.onprem.monitoring import Grafana
 
 
 def main():
@@ -71,6 +72,9 @@ def main():
 
             with Cluster('Influxdb'):
                 infulxdb = Influxdb('Influxdb\ntcp:8086')
+
+            with Cluster('Grafana'):
+                grafana = Grafana('Grafana\ntcp:3000')
 
         with Cluster('Inventory and Connectivity'):
             with Cluster('Inventory'):

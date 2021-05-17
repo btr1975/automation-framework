@@ -33,6 +33,12 @@ sysctl -w vm.max_map_count=262144
 docker exec -it <container-name> nautobot-server createsuperuser
 ```
 
+### Graphana iformation
+
+* Default username admin default password admin
+
+* It will ask you to change the password on first login
+
 ### Information URLs
 
 * [vm.max_map_count](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count)
@@ -68,5 +74,6 @@ docker exec -it <container-name> nautobot-server createsuperuser
 | MongoDB | Document dB |
 | Batfish | Modeling |
 | Influxdb | Series dB |
+| Grafana | Pretty Graphs |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
