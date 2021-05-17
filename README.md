@@ -3,6 +3,12 @@ Automation Framework
 
 **This is not meant to be in production, this is a development environment**
 
+## Assumptions
+
+1. You know the basics of [Docker](https://www.docker.com/).
+2. You know the basics of [Docker Compose](https://docs.docker.com/compose/).
+3. You know the basics of [Docker Swarm](https://docs.docker.com/engine/swarm/).
+
 ## General Information
 
 * The base Makefile is meant to be used with Docker Swarm
@@ -32,6 +38,11 @@ docker exec -it <container-name> nautobot-server createsuperuser
 * [vm.max_map_count](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count)
 * [curl examples send data to ELK](https://mindmajix.com/elasticsearch/curl-syntax-with-examples)
 * [nautobot-lab reference](https://github.com/nautobot/nautobot-lab)
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://docs.docker.com/compose/)
+* [Docker Swarm](https://docs.docker.com/engine/swarm/)
+* [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
+* [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 
 ### What is Available in Swarm
 
