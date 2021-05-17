@@ -59,7 +59,7 @@ def main():
             ]
 
         with Cluster('Logging and Search'):
-            with Cluster('Search and Logging'):
+            with Cluster('ELK Stack'):
                 elastic_search = Elasticsearch('Elastic Search\ntcp:9200')
                 kibana = Kibana('Kibana\ntcp:5601')
                 logstash = Logstash('Logstash\ntcp:5044')
@@ -68,6 +68,8 @@ def main():
                     kibana,
                     logstash
                 ]
+
+            with Cluster('Influxdb'):
                 infulxdb = Influxdb('Influxdb\ntcp:8086')
 
         with Cluster('Inventory and Connectivity'):
