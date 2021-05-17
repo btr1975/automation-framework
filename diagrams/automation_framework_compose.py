@@ -29,12 +29,6 @@ def main():
             with Cluster('container1'):
                 python_container = Python('APIs\nOther Microservices')
 
-            with Cluster('container2'):
-                java_container = Java('APIs\nOther Microservices')
-
-            with Cluster('container3'):
-                nodejs_container = Nodejs('APIs\nOther Microservices')
-
             with Cluster('BatFish'):
                 batfish_container = Custom('BatFish\ntcp:8888\ntcp:9997\ntcp:9996', 'custom_icons/BatFish.png')
 
@@ -90,25 +84,15 @@ def main():
                 ]
 
         kafka_brokers - python_container
-        kafka_brokers - java_container
-        kafka_brokers - nodejs_container
 
         python_container - vault
-        java_container - vault
-        nodejs_container - vault
 
         python_container - nautobot
-        java_container - nautobot
-        nodejs_container - nautobot
 
         nautobot - logstash
         python_container - logstash
-        java_container - logstash
-        nodejs_container - logstash
 
         python_container - mongodb
-        java_container - mongodb
-        nodejs_container - mongodb
 
 
 if __name__ == '__main__':
