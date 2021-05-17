@@ -11,7 +11,7 @@
         deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser \
         deploy_mogodb start_mogodb stop_mogodb rm_mogodb remove_mogodb_volumes \
         deploy_batfish start_batfish stop_batfish rm_batfish remove_batfish_volumes \
-        check_volumes \
+        check_volumes check_running \
         deploy_all start_all stop_all rm_all
 
 all: deploy_all
@@ -127,6 +127,9 @@ remove_batfish_volumes:
 
 check_stats:
 	docker stats
+
+check_running:
+	docker ps
 
 check_volumes:
 	docker volume ls
