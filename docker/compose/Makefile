@@ -10,6 +10,7 @@
         deploy_kafka start_kafka stop_kafka  rm_kafka \
         deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser \
         deploy_mogodb start_mogodb stop_mogodb rm_mogodb remove_mogodb_volumes \
+        deploy_batfish start_batfish stop_batfish rm_batfish remove_batfish_volumes \
         check_volumes \
         deploy_all start_all stop_all rm_all
 
@@ -108,6 +109,21 @@ rm_mogodb:
 remove_mogodb_volumes:
 	docker volume rm compose_mongo-data-db-compose
 	docker volume rm compose_mongo-data-configdb-compose
+
+deploy_batfish:
+	docker-compose -f docker-compose-batfish-latest.yml up -d
+
+start_batfish:
+	docker-compose -f docker-compose-batfish-latest.yml start
+
+stop_batfish:
+	docker-compose -f docker-compose-batfish-latest.yml stop
+
+rm_batfish:
+	docker-compose -f docker-compose-batfish-latest.yml rm
+
+remove_batfish_volumes:
+	docker volume rm compose_batfish-data-compose
 
 check_stats:
 	docker stats

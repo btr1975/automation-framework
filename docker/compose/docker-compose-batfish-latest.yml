@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+    batfish:
+        image: batfish/allinone:latest
+        hostname: batfish
+        container_name: batfish
+        ports:
+            - "8888:8888"
+            - "9997:9997"
+            - "9996:9996"
+        volumes:
+            - "batfish-data-compose:/data"
+
+volumes:
+    batfish-data-compose:

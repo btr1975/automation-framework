@@ -32,3 +32,26 @@ docker exec -it <container-name> nautobot-server createsuperuser
 * [vm.max_map_count](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count)
 * [curl examples send data to ELK](https://mindmajix.com/elasticsearch/curl-syntax-with-examples)
 * [nautobot-lab reference](https://github.com/nautobot/nautobot-lab)
+
+### What is Available in Swarm
+
+| ARCHITECTURE | USED FOR |
+|---|---|
+| Kafka | As a message bus |
+| ELK Elastic Search | Logging search, various other stuff |
+| Hashicorp Vault | Secrets Storage |
+| Nautobot | "Source of truth" |
+| A Genie Parser | Something to parse show commands |
+
+### What is Available in Compose
+
+| ARCHITECTURE | USED FOR |
+|---|---|
+| Kafka | As a message bus |
+| ELK Elastic Search | Logging search, various other stuff |
+| Hashicorp Vault | Secrets Storage |
+| Nautobot | "Source of truth" |
+| A Genie Parser | Something to parse show commands |
+| MongoDB | Document dB |
+| Batfish | Modeling |
+
