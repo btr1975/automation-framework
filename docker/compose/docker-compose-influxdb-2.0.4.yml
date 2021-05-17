@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+    influxdb:
+        image: influxdb:2.0.4
+        hostname: influxdb
+        container_name: influxdb
+        ports:
+            - "8086:8086"
+        volumes:
+            - "influxdb-var-lib-influxdb2-compose:/var/lib/influxdb2"
+            - "influxdb-etc-influxdb2-compose:/etc/influxdb2"
+
+volumes:
+    influxdb-var-lib-influxdb2-compose:
+    influxdb-etc-influxdb2-compose:
