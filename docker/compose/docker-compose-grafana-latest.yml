@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-    batfish:
+    grafana:
         image: grafana/grafana:latest-ubuntu
         hostname: grafana
         container_name: grafana
