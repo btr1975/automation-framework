@@ -1,6 +1,6 @@
 # This Makefile is to run compose for the framework
 # Author: Benjamin P. Trachtenberg
-# Version: 2021.5.17.001
+# Version: 2021.5.20.001
 #
 
 .PHONY: all clean \
@@ -9,7 +9,7 @@
         deploy_vault start_vault stop_vault rm_vault remove_vault_volumes \
         deploy_kafka start_kafka stop_kafka  rm_kafka \
         deploy_rh_parser start_rh_parser stop_rh_parser rm_rh_parser \
-        deploy_mogodb start_mogodb stop_mogodb rm_mogodb remove_mogodb_volumes \
+        deploy_mongodb start_mongodb stop_mongodb rm_mongodb remove_mongodb_volumes \
         deploy_batfish start_batfish stop_batfish rm_batfish remove_batfish_volumes \
         deploy_influxdb start_influxdb stop_influxdb rm_influxdb remove_influxdb_volumes \
         deploy_grafana start_grafana stop_grafana rm_grafana \
@@ -96,19 +96,19 @@ stop_rh_parser:
 rm_rh_parser:
 	docker-compose -f docker-compose-rh-parser.yml rm
 
-deploy_mogodb:
+deploy_mongodb:
 	docker-compose -f docker-compose-mongo-latest.yml up -d
 
-start_mogodb:
+start_mongodb:
 	docker-compose -f docker-compose-mongo-latest.yml start
 
-stop_mogodb:
+stop_mongodb:
 	docker-compose -f docker-compose-mongo-latest.yml stop
 
-rm_mogodb:
+rm_mongodb:
 	docker-compose -f docker-compose-mongo-latest.yml rm
 
-remove_mogodb_volumes:
+remove_mongodb_volumes:
 	docker volume rm compose_mongo-data-db-compose
 	docker volume rm compose_mongo-data-configdb-compose
 
