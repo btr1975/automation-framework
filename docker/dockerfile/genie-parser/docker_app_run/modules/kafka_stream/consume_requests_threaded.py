@@ -6,12 +6,16 @@ import sys
 import queue
 import threading
 from confluent_kafka import Consumer
-from modules.kafka_producers import produce_results
+from confluent_kafka import Producer
+from .produce_records import ProduceRecords
 from modules.command_parse import command_parse
 from modules.vault_lib import VaultConnection
 
 
 def consume_requests_threaded():
+    producer = Producer({
+        'bootstrap.servers': 'broker-1:9092,broker-2:9093,broker-3:9094'
+    })
     # Create consumer object with optional values
     c = Consumer({
         'bootstrap.servers': 'broker-1:9092,broker-2:9093,broker-3:9094',
@@ -22,6 +26,9 @@ def consume_requests_threaded():
 
     # Subscribe to topics to listen to
     c.subscribe(['genie.runners.requests'])
+
+    # Set up producer
+    produce_results = ProduceRecords(producer, topic='genie.runners.requests.results')
 
     # Create a FIFO queue for threading
     fifo_queue = queue.Queue()
@@ -93,7 +100,7 @@ def consume_requests_threaded():
                 send_dict.update(python_data)
 
                 print('----- Producing results -----')
-                produce_results(send_dict)
+                produce_results.produce_rerecords(send_dict)
 
     except KeyboardInterrupt as e:
         c.close()

@@ -33,7 +33,7 @@ def docker_app_run(python_dict):
 
     parse_result = genie_parse_obj.parse_string(command, command_result)
 
-    return parse_result, command_result
+    return parse_result
 
 
 consume_requests(docker_app_run)
