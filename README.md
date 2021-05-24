@@ -57,7 +57,26 @@ docker exec -it <container-name> nautobot-server createsuperuser
 sudo systemctl restart docker
 ```
 
-3. To check images you add in it. In your browser.
+3. In order to use the registry in compose you must log in using the credentials' admin/admin
+
+```text
+docker login <ip or domain name>:5000 -u admin -p admin
+```
+
+4. You can verify you are logged in by looking in ~/.docker/config.json you should see something like this
+
+```json
+{
+	"auths": {
+		"<ip or domain name>:5000": {
+			"auth": "secret-key"
+		}
+	}
+}
+
+```
+
+5. To check images you add in it. In your browser.
 
 ```text
 
@@ -105,5 +124,6 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 | Batfish | Modeling |
 | Influxdb | Series dB |
 | Grafana | Pretty Graphs |
+| Docker Registry | To hold docker images |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
