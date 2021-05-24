@@ -39,6 +39,35 @@ docker exec -it <container-name> nautobot-server createsuperuser
 
 * It will ask you to change the password on first login
 
+### Docker registry information
+
+* This is a **insecure** registry the following must be done to use it
+
+1. create daemon.json in /etc/docker and add the following
+
+```json
+{
+  "insecure-registries" : ["<ip or domain name>:5000"]
+}
+```
+
+2. restart docker daemon
+
+```text
+sudo systemctl restart docker
+```
+
+3. To check images you add in it. In your browser.
+
+```text
+
+# To see your repositories
+http://<ip or domain name>:5000/v2/_catalog
+
+# To see the tags in your repositories
+http://<ip or domain name>:5000/v2/<repo-name>/tags/list
+```
+
 ### Information URLs
 
 * [vm.max_map_count](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count)
@@ -49,6 +78,7 @@ docker exec -it <container-name> nautobot-server createsuperuser
 * [Docker Swarm](https://docs.docker.com/engine/swarm/)
 * [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
+* [Docker Registry Detail](https://docs.docker.com/registry/)
 
 ### What is Available in Swarm
 
