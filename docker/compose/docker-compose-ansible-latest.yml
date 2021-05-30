@@ -1,0 +1,10 @@
+---
+version: '3.7'
+services:
+    ansible-rh:
+        build:
+            context: ../dockerfile
+            dockerfile: Dockerfile-rh-Ansible
+        image: ansible-rh:latest
+        hostname: ansible-rh
+        container_name: ansible-rh

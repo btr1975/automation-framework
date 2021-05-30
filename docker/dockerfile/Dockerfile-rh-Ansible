@@ -1,0 +1,13 @@
+FROM registry.access.redhat.com/ubi8/python-38
+
+LABEL version="2021.5.30.001"
+LABEL description="Ansible RHEL8"
+LABEL maintainer="Ben Trachtenberg"
+
+COPY ./ansible /ansible
+
+WORKDIR /ansible
+
+RUN pip install --upgrade pip \
+    && pip install --upgrade setuptools wheel \
+    && pip install -r requirements.txt
