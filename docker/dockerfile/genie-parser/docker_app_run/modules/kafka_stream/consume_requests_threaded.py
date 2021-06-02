@@ -1,5 +1,3 @@
-import json
-import hashlib
 import platform
 import os
 import sys
@@ -8,8 +6,9 @@ import threading
 from confluent_kafka import Consumer
 from confluent_kafka import Producer
 from .produce_records import ProduceRecords
+from .util import msg_value_to_dict, get_python_dict_hash_sha256, msg_key_to_string
 from modules.command_parse import command_parse
-from modules.vault_lib import VaultConnection
+from modules.vault_lib import VaultDataKv2
 
 
 def consume_requests_threaded():
@@ -52,29 +51,25 @@ def consume_requests_threaded():
                 continue
 
             # Receive message if there is one, and if there is no error
-            python_data = json.loads(msg.value().decode('utf-8'))
+            python_data = msg_value_to_dict(msg)
 
             # Check to see if key destination-host = genie-runners
             if python_data.get('destination-host') == 'genie.runners':
                 print("Hey I'm a genie.runner")
-                print('Key = {}'.format(msg.key().decode("utf-8")))
-                print('Hash of value is: {}'.format(hashlib.sha224(msg.value()).hexdigest()))
-                if msg.key().decode("utf-8") == hashlib.sha224(msg.value()).hexdigest():
+                print(f'Key = {msg_key_to_string(msg)}')
+                print(f'Hash of value is: {get_python_dict_hash_sha256(python_data)}')
+                if msg_key_to_string(msg) == get_python_dict_hash_sha256(python_data):
                     print('MATCHED HASH')
 
                 # Lookup login credentials from HashiCopr Vault
                 print('----- Looking up credentials in HashiCorp Vault -----')
-                vault_obj = VaultConnection(protocol=os.getenv('VAULT_PROTOCOL'), host=os.getenv('VAULT_HOST'),
-                                            token=os.getenv('VAULT_TOKEN'), port=int(os.getenv('VAULT_PORT')),
-                                            ssl_verify=bool(os.getenv('VAULT_SSL_VERIFY')))
-
-                vault_response = vault_obj.get_kv_v1_value(os.getenv('VAULT_KV_PATH'))
+                vault_obj = VaultDataKv2()
 
                 print('----- Lookup complete -----')
 
                 # Add username and password to request
-                python_data['username'] = vault_response.get('data').get('username')
-                python_data['password'] = vault_response.get('data').get('password')
+                python_data['username'] = vault_obj.get_latest_data().get('username')
+                python_data['password'] = vault_obj.get_latest_data().get('password')
 
                 print('----- Start new thread for command get -----')
                 threading.Thread(target=command_parse, args=(python_data, fifo_queue, thread_lock)).start()

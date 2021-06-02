@@ -1,8 +1,7 @@
-import json
-import hashlib
 import sys
 import platform
 from confluent_kafka import Consumer
+from .util import msg_value_to_dict, get_python_dict_hash_sha256, msg_key_to_string
 
 
 def consume_results():
@@ -29,14 +28,14 @@ def consume_results():
                 continue
 
             # Retrieve message
-            python_data = json.loads(msg.value().decode('utf-8'))
+            python_data = msg_value_to_dict(msg)
 
             if python_data.get('destination-host') == 'genie.runners':
                 print('-------------------------- Message {} --------------------------'.format(message_count))
                 print("Hey I'm a genie.runner.users")
-                print('Key = {}'.format(msg.key().decode("utf-8")))
-                print('Hash of value is: {}'.format(hashlib.sha224(msg.value()).hexdigest()))
-                if msg.key().decode("utf-8") == hashlib.sha224(msg.value()).hexdigest():
+                print(f'Key = {msg_key_to_string(msg)}')
+                print(f'Hash of value is: {get_python_dict_hash_sha256(python_data)}')
+                if msg_key_to_string(msg) == get_python_dict_hash_sha256(python_data):
                     print('MATCHED HASH')
 
                 message_count += 1

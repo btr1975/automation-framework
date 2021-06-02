@@ -2,7 +2,7 @@
 Producer Utilities
 """
 import json
-import hashlib
+from .util import get_python_dict_hash_sha256
 
 
 class ProduceRecords:
@@ -66,7 +66,7 @@ class ProduceRecords:
         # Asynchronously produce a message, the delivery report callback
         # will be triggered from poll() above, or flush() below, when the message has
         # been successfully delivered or failed permanently.
-        self.producer.produce(topic=self.topic, key='{}'.format(hashlib.sha224(json_data.encode('utf-8')).hexdigest()),
+        self.producer.produce(topic=self.topic, key=f'{get_python_dict_hash_sha256(data)}',
                               value=json_data.encode('utf-8'), callback=self.delivery_report)
 
     def _send_list_of_records(self, data_list):

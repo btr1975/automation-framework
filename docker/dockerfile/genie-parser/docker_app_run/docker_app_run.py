@@ -5,7 +5,7 @@ mostly for testing
 """
 from quick_netmiko import QuickNetmiko
 from pyats_genie_command_parse import GenieCommandParse
-from modules import consume_requests
+from modules import consume_requests, VaultDataKv2
 
 
 def docker_app_run(python_dict):
@@ -22,10 +22,13 @@ def docker_app_run(python_dict):
 
     if python_dict.get('device_type') not in allowed_device_types:
         return None
+
+    vault = VaultDataKv2()
+
     command = python_dict.get('command')
 
     netmiko_obj = QuickNetmiko(python_dict.get('device_ip_name'), python_dict.get('device_type'),
-                               python_dict.get('username'), python_dict.get('password'))
+                               vault.get_latest_data().get('username'), vault.get_latest_data().get('password'))
 
     command_result = netmiko_obj.send_commands(command)
 

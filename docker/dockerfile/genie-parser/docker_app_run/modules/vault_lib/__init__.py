@@ -1,4 +1,4 @@
 """
 init for the vault_lib module
 """
-from .vault_lib import VaultConnection
+from .hashicorp_vault import VaultDataKv2

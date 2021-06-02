@@ -1,11 +1,10 @@
-import json
-import hashlib
 import platform
 import datetime
 import sys
 from confluent_kafka import Consumer
 from confluent_kafka import Producer
 from .produce_records import ProduceRecords
+from .util import msg_value_to_dict, get_python_dict_hash_sha256, msg_key_to_string
 
 
 def consume_requests(callback=None):
@@ -41,19 +40,19 @@ def consume_requests(callback=None):
 
             print(' LOG '.center(75, '-'))
             print('')
-            print('Received message: {}'.format(msg.value().decode('utf-8')))
-            python_data = json.loads(msg.value().decode('utf-8'))
+            print(f'Received message: {msg_value_to_dict(msg)}')
+            python_data = msg_value_to_dict(msg)
 
             if python_data.get('destination-host') == 'genie.runners':
                 print("Hey I'm a genie.runner")
-                print('Key = {}'.format(msg.key().decode('utf-8')))
-                print('Hash of value is: {}'.format(hashlib.sha256(msg.value()).hexdigest()))
-                if msg.key().decode("utf-8") == hashlib.sha256(msg.value()).hexdigest():
+                print(f'Key = {msg_key_to_string(msg)}')
+                print(f'Hash of value is: {get_python_dict_hash_sha256(python_data)}')
+                if msg_key_to_string(msg) == get_python_dict_hash_sha256(python_data):
                     print('MATCHED HASH')
                 if callback:
                     command_result__dict = callback(python_data)
                     send_dict = {'result': command_result__dict,
-                                 'original_hash': '{}'.format(msg.key().decode("utf-8")),
+                                 'original_hash': f'{msg_key_to_string(msg)}',
                                  'timestamp': str(datetime.datetime.now(datetime.timezone.utc)),
                                  'replier': 'some_name',
                                  'original_request': python_data,

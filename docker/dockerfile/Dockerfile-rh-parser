@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/python-36
 
-LABEL version="2021.5.21.001"
+LABEL version="2021.6.2.001"
 LABEL description="Genie Kafka Parser RHEL8"
 LABEL maintainer="Ben Trachtenberg"
 
