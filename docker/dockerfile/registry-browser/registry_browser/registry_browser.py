@@ -132,4 +132,3 @@ if __name__ == '__main__':
     obj_a = DockerRegistryApi('http://10.0.0.101')
     obj_a.print_pretty_json(obj_a.get_catalog())
     obj_a.print_pretty_json(obj_a.get_all_repository_tags())
-    obj_a.print_pretty_json(obj_a.get_repository_manifest('nso-teamcity', 'latest'))
