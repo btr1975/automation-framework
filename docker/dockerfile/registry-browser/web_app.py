@@ -25,20 +25,39 @@ def home():
         raise Exception()
 
 
-@app.route('/repository/<repository>', methods=['GET'])
-def repository(repository):
+@app.route('/repository/<repository_name>', methods=['GET'])
+def repository(repository_name):
     if flask.request.method == 'GET':
         registry = DockerRegistryApi('http://10.0.0.101')
         return render_template(
             'repository-info.html',
-            title='Docker Registry Browser Home',
-            description='Docker Registry Browser Home',
-            repository=repository,
-            repository_results_data=registry.get_repository_tags(repository).get('tags')
+            title=f'Docker Registry Repository Tags {repository_name}',
+            description=f'Docker Registry Repository Tags {repository_name}',
+            repository_name=repository_name,
+            repository_results_data=registry.get_repository_tags(repository_name).get('tags')
         )
 
     else:
         raise Exception()
+
+
+@app.route('/manifest/<repository_name>/<tag>', methods=['GET'])
+def repository_tag_manifest(repository_name, tag):
+    if flask.request.method == 'GET':
+        registry = DockerRegistryApi('http://10.0.0.101')
+        manifest = registry.get_pretty_json(registry.get_repository_manifest(repository_name, tag))
+        return render_template(
+            'repository-tag-manifest-info.html',
+            title='Docker Registry Browser Home',
+            description='Docker Registry Browser Home',
+            repository_name=repository_name,
+            tag=tag,
+            repository_tag_manifest_results_data=manifest
+        )
+
+    else:
+        raise Exception()
+
 
 def run_local_server(ip_addr, port, debug=True):
     app.run(port=int(port), host=ip_addr, debug=debug)

@@ -115,8 +115,21 @@ class DockerRegistryApi:
         """
         print(json.dumps(json_data, sort_keys=True, indent=4))
 
+    @staticmethod
+    def get_pretty_json(json_data):  # pragma: no cover
+        """Method to get response JSON real pretty like
+
+        :type json_data: Dict
+        :param json_data: JSON Data in a dictionary
+
+        :rtype: String
+        :return: pretty JSON
+        """
+        return json.dumps(json_data, sort_keys=True, indent=4)
+
 
 if __name__ == '__main__':
     obj_a = DockerRegistryApi('http://10.0.0.101')
     obj_a.print_pretty_json(obj_a.get_catalog())
     obj_a.print_pretty_json(obj_a.get_all_repository_tags())
+    obj_a.print_pretty_json(obj_a.get_repository_manifest('nso-teamcity', 'latest'))

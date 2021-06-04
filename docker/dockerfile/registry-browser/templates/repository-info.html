@@ -21,7 +21,7 @@
     </style>
 
     <div class="container">
-        <p>Docker Registry Repository Tags: {{ repository }}</p>
+        <p>Docker Registry Repository Tags: {{ repository_name }}</p>
        <div id="repository_results_div">
            {% if repository_results_data %}
            <table id="repository_results_table">
@@ -30,7 +30,7 @@
                </tr>
                {% for tag in repository_results_data %}
                    <tr>
-                       <td>{{ tag }}</td>
+                       <td><a href="/manifest/{{ repository_name }}/{{ tag }}">{{ tag }}</a></td>
                     </tr>
                {% endfor %}
            </table>

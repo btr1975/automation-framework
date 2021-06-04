@@ -26,9 +26,9 @@
                 <tr>
                     <th>REPOSITORIES</th>
                 </tr>
-                {% for repository in registry_results_data %}
+                {% for repository_name in registry_results_data %}
                     <tr>
-                        <td><a href="/repository/{{ repository }}">{{ repository }}</a></td>
+                        <td><a href="/repository/{{ repository_name }}">{{ repository_name }}</a></td>
                      </tr>
                 {% endfor %}
             </table>
