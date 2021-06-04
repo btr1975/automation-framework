@@ -2,14 +2,39 @@
 
 {% block content %}
     <style>
+    td, th {
+      border: 1px solid #999;
+      padding: 1.0rem;
+    }
     .container {
       margin: auto;
       width: 80%;
-      border: 3px solid green;
+      border: 3px solid black;
+      padding: 10px;
+    }
+    #registry_results_table {
+      margin: auto;
+      width: 80%;
       padding: 10px;
     }
     </style>
     <div class="container">
-
+        <p>Docker Registry Browser Home</p>
+        <div id="registry_results_div">
+            {% if registry_results_data %}
+            <table id="registry_results_table">
+                <tr>
+                    <th>REPOSITORIES</th>
+                </tr>
+                {% for repository in registry_results_data %}
+                    <tr>
+                        <td><a href="/repository/{{ repository }}">{{ repository }}</a></td>
+                     </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                NO REPOSITORIES FOUND
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
