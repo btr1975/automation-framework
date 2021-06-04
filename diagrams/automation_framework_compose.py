@@ -30,7 +30,10 @@ def main():
                 python_container = Python('APIs\nOther Microservices')
 
             with Cluster('Docker Registry'):
-                docker_registry_container = Docker('Docker Registry:5000')
+                docker_registry_container = Docker('Docker Registry\ntcp:5000')
+
+            with Cluster('Docker Registry Browser'):
+                docker_registry_browser_container = Python('Docker Registry Browser\ntcp:8088')
 
             with Cluster('BatFish'):
                 batfish_container = Custom('BatFish\ntcp:8888\ntcp:9997\ntcp:9996', 'custom_icons/BatFish.png')

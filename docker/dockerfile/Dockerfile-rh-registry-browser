@@ -1,0 +1,17 @@
+FROM registry.access.redhat.com/ubi8/python-38
+
+LABEL version="2021.6.3.001"
+LABEL description="Docker Registry Browser RHEL8"
+LABEL maintainer="Ben Trachtenberg"
+
+COPY ./registry-browser /registry-browser
+
+WORKDIR /registry-browser
+
+RUN pip install --upgrade pip \
+    && pip install --upgrade setuptools wheel \
+    && pip install -r requirements.txt
+
+EXPOSE 80/tcp
+
+ENTRYPOINT ["python", "run_web_app.py"]

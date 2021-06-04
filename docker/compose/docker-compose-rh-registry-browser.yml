@@ -1,0 +1,15 @@
+---
+version: '3.7'
+services:
+    rh-registry-browser:
+        build:
+            context: ../dockerfile
+            dockerfile: Dockerfile-rh-registry-browser
+        image: rh-registry-browser:latest
+        hostname: rh-registry-browser
+        container_name: rh-registry-browser
+        ports:
+            - "8088:80"
+        environment:
+            REGISTRY_SERVER: http://10.0.0.101
+        restart: on-failure

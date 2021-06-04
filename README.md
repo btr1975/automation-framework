@@ -125,5 +125,6 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 | Influxdb | Series dB |
 | Grafana | Pretty Graphs |
 | Docker Registry | To hold docker images |
+| Docker Registry Browser | To Browse the Registry |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
