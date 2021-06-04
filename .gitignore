@@ -135,4 +135,4 @@ dmypy.json
 ~*
 
 # No files starting with temp
-temp*
+temp_*

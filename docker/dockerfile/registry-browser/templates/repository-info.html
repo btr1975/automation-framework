@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <style>
+    td, th {
+      border: 1px solid #999;
+      padding: 1.0rem;
+    }
+    .container {
+      margin: auto;
+      width: 80%;
+      border: 3px solid green;
+      padding: 10px;
+    }
+    #interface_results_table {
+      margin: auto;
+      width: 80%;
+      padding: 10px;
+    }
+    </style>
+
+    <div class="container">
+       <div id="interface_results_div">
+           {% if interface_results_data %}
+            DEVICE: {{ device }}<br>
+           <table id="interface_results_table">
+               <tr>
+                   <th>INTERFACE</th>
+                   <th>IN-CRC</th>
+                   <th>IN-ERRORS</th>
+                   <th>IN-PARITY</th>
+                   <th>OUT-ERRORS</th>
+                   <th>OUT-COLLISION</th>
+               </tr>
+               {% for item in interface_results_data %}
+                   <tr>
+                       <td>{{ item[0] }}</td>
+                       <td>{{ item[1] }}</td>
+                       <td>{{ item[2] }}</td>
+                       <td>{{ item[3] }}</td>
+                       <td>{{ item[4] }}</td>
+                       <td>{{ item[5] }}</td>
+                    </tr>
+               {% endfor %}
+           </table>
+           {% else %}
+               NO ROUTES FOUND
+           {% endif %}
+           <form action="/" method="get">
+             <input type="submit" value="GO BACK">
+           </form>
+       </div>
+    </div>
+{% endblock %}
