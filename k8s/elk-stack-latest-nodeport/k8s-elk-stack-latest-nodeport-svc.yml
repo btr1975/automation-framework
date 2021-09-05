@@ -10,13 +10,16 @@ spec:
     targetPort: 5601       # Port to connect to container
     nodePort: 31114        # Port to expose on the nodes
     protocol: TCP
+    name: "Kibana"
   - port: 9200             # Port apps in cluster use
     targetPort: 9200       # Port to connect to container
     nodePort: 31115        # Port to expose on the nodes
     protocol: TCP
+    name: "Elastic Search"
   - port: 5044             # Port apps in cluster use
     targetPort: 5044       # Port to connect to container
     nodePort: 31116        # Port to expose on the nodes
     protocol: TCP
+    name: "Logstash"
   selector:
     app: elk

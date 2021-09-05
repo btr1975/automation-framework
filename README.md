@@ -124,7 +124,7 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 
 ![Automation Framework Swarm](diagrams/automation_framework_swarm.png)
 
-### What is Available in Compose
+### What is Available in Compose and Kubernetes
 
 | ARCHITECTURE | USED FOR |
 |---|---|
