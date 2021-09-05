@@ -1,0 +1,26 @@
+--- # NOT COMPLETE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batfish-deploy
+  labels:
+    app: batfish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: batfish
+  template:
+    metadata:
+      labels:
+        app: batfish
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: batfish
+        image: batfish/allinone:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+        - containerPort: 9997
+        - containerPort: 9996
