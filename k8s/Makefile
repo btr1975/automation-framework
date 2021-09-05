@@ -10,13 +10,13 @@ SHELL := /bin/bash
 all: deploy_all
 
 apply_vault-with-lb:
-	(cd vault-latest-lb && source ~/.bashrc && kubectl apply -f .)
+	(cd vault-latest-lb && microk8s kubectl apply -f .)
 
 delete_vault-with-lb:
-	(cd vault-latest-lb && source ~/.bashrc && kubectl delete -f .)
+	(cd vault-latest-lb && microk8s kubectl delete -f .)
 
 apply_vault-with-nodeport:
-	(cd vault-latest-nodeport && source ~/.bashrc && kubectl apply -f .)
+	(cd vault-latest-nodeport && microk8s kubectl apply -f .)
 
 delete_vault-with-nodeport:
-	(cd vault-latest-nodeport && source ~/.bashrc && kubectl delete -f .)
+	(cd vault-latest-nodeport && microk8s kubectl delete -f .)
