@@ -39,7 +39,7 @@ spec:
         - containerPort: 8181
         env:
         - name: ME_CONFIG_MONGODB_SERVER
-        - value: "mongo"
+          value: "mongo"
         - name: ME_CONFIG_MONGODB_ADMINUSERNAME
           value: "root"
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
