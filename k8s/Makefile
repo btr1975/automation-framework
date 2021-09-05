@@ -7,7 +7,8 @@ SHELL := /bin/bash
 .PHONY: all clean \
         apply_vault-with-lb delete_vault-with-lb apply_vault-with-nodeport \
         apply_batfish-with-lb delete_batfish-with-lb apply_batfish-with-nodeport delete_batfish-with-nodeport \
-        apply_elk-with-lb delete_elk-with-lb apply_elk-with-nodeport delete_elk-with-nodeport
+        apply_elk-with-lb delete_elk-with-lb apply_elk-with-nodeport delete_elk-with-nodeport \
+        apply_grafana-with-lb delete_grafana-with-lb apply_grafana-with-nodeport delete_grafana-with-nodeport
 
 all: deploy_all
 
@@ -46,3 +47,15 @@ apply_elk-with-nodeport:
 
 delete_elk-with-nodeport:
 	(cd elk-stack-latest-nodeport && microk8s kubectl delete -f .)
+
+apply_grafana-with-lb:
+	(cd grafana-latest-lb && microk8s kubectl apply -f .)
+
+delete_grafana-with-lb:
+	(cd grafana-latest-lb && microk8s kubectl delete -f .)
+
+apply_grafana-with-nodeport:
+	(cd grafana-latest-nodeport && microk8s kubectl apply -f .)
+
+delete_grafana-with-nodeport:
+	(cd grafana-latest-nodeport && microk8s kubectl delete -f .)
