@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 # This Makefile is to run k8s for the framework
 # Author: Benjamin P. Trachtenberg
 # Version: 2021.9.5.001
