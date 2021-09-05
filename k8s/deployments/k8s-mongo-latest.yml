@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deploy
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: mongo
+        image: mongo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "root"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: "example"
+        volumeMounts:
+        - name: mongo-db
+          mountPath: /data/db
+        - name: mongo-configdb
+          mountPath: /data/configdb
+      - name: mongo-express
+        image: mongo-express
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8181
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          value: "root"
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          value: "example"
+      volumes:
+      - name: mongo-db
+        persistentVolumeClaim:
+          claimName: mongo-db-claim
+      - name: mongo-configdb
+        persistentVolumeClaim:
+          claimName: mongo-configdb-claim
