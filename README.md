@@ -3,11 +3,19 @@ Automation Framework
 
 **This is not meant to be in production, this is a development environment**
 
-## Assumptions
+## Assumptions if you are using Docker with or without Swarm Mode
 
 1. You know the basics of [Docker](https://www.docker.com/).
 2. You know the basics of [Docker Compose](https://docs.docker.com/compose/).
 3. You know the basics of [Docker Swarm](https://docs.docker.com/engine/swarm/).
+
+## Assumptions if you are using Kubernetes single node or cluster
+1. You are using [microk8s](https://microk8s.io/).
+2. You have enabled [add-ons](https://microk8s.io/docs/addons) dns, metallb, 
+   storage, and registry in [microk8s](https://microk8s.io/).
+3. You know the basics of [Kubernetes/k8s](https://kubernetes.io/).
+4. You know the basics of [Kubernetes YAML](https://kubernetes.io/docs/reference/).
+
 
 ## General Information
 
@@ -98,6 +106,10 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 * [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 * [Docker Registry Detail](https://docs.docker.com/registry/)
+* [Kubernetes/k8s](https://kubernetes.io/)
+* [Kubernetes YAML](https://kubernetes.io/docs/reference/)
+* [microk8s](https://microk8s.io/)
+* [microk8s add-ons](https://microk8s.io/docs/addons)
 
 ### What is Available in Swarm
 
