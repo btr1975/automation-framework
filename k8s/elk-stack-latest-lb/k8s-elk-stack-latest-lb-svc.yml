@@ -8,12 +8,12 @@ spec:
   ports:
   - port: 5601
     targetPort: 5601
-    name: "Kibana"
+    name: "kibana"
   - port: 9200
     targetPort: 9200
-    name: "Elastic Search"
+    name: "elastic-search"
   - port: 5044
     targetPort: 5044
-    name: "Logstash"
+    name: "logstash"
   selector:
     app: elk
