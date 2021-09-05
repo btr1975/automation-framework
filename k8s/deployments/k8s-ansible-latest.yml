@@ -2,25 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elk-deploy
+  name: ansible-deploy
   labels:
-    app: elk
+    app: ansible
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: elk
+      app: ansible
   template:
     metadata:
       labels:
-        app: elk
+        app: ansible
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: elk
-        image: sebp/elk
+      - name: ansible
+        image: localhost:32000/ansible-rh:latest
         imagePullPolicy: Always
-        ports:
-        - containerPort: 5601
-        - containerPort: 9200
-        - containerPort: 5044
