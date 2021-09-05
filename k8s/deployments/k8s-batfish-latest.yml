@@ -24,3 +24,10 @@ spec:
         - containerPort: 8888
         - containerPort: 9997
         - containerPort: 9996
+        volumeMounts:
+        - name: batfish-data
+          mountPath: /data
+      volumes:
+      - name: batfish-data
+        persistentVolumeClaim:
+          claimName: batfish-claim
