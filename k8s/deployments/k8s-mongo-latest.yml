@@ -32,6 +32,32 @@ spec:
           mountPath: /data/db
         - name: mongo-configdb
           mountPath: /data/configdb
+      volumes:
+      - name: mongo-db
+        persistentVolumeClaim:
+          claimName: mongo-db-claim
+      - name: mongo-configdb
+        persistentVolumeClaim:
+          claimName: mongo-configdb-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express-deploy
+  labels:
+    app: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
       - name: mongo-express
         image: mongo-express
         imagePullPolicy: Always
@@ -44,10 +70,3 @@ spec:
           value: "root"
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
           value: "example"
-      volumes:
-      - name: mongo-db
-        persistentVolumeClaim:
-          claimName: mongo-db-claim
-      - name: mongo-configdb
-        persistentVolumeClaim:
-          claimName: mongo-configdb-claim

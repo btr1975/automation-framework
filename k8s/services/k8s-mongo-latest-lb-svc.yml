@@ -13,4 +13,6 @@ spec:
     targetPort: 8081
     name: mongo-express-gui
   selector:
-    app: mongo
+    app:
+    - mongo
+    - mongo-express
