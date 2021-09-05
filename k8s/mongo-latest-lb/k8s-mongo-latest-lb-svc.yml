@@ -9,10 +9,18 @@ spec:
   - port: 27017
     targetPort: 27017
     name: mongo-db
+  selector:
+    app: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service-lb
+spec:
+  type: LoadBalancer
+  ports:
   - port: 8081
     targetPort: 8081
     name: mongo-express-gui
   selector:
-    app:
-    - mongo
-    - mongo-express
+    app: mongo-express
