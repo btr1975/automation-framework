@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nautobot-deploy
+  labels:
+    app: nautobot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nautobot
+  template:
+    metadata:
+      labels:
+        app: nautobot
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: nautobot
+        image: networktocode/nautobot-lab:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: nautobot-redis
+          mountPath: /var/lib/redis
+        - name: nautobot-postgresql
+          mountPath: /var/lib/postgresql/12/main
+      volumes:
+      - name: nautobot-redis
+        persistentVolumeClaim:
+          claimName: nautobot-redis-claim
+      - name: nautobot-postgresql
+        persistentVolumeClaim:
+          claimName: nautobot-postgresql-claim
