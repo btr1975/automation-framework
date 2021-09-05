@@ -9,7 +9,8 @@ SHELL := /bin/bash
         apply_batfish-with-lb delete_batfish-with-lb apply_batfish-with-nodeport delete_batfish-with-nodeport \
         apply_elk-with-lb delete_elk-with-lb apply_elk-with-nodeport delete_elk-with-nodeport \
         apply_grafana-with-lb delete_grafana-with-lb apply_grafana-with-nodeport delete_grafana-with-nodeport \
-        apply_influxdb-with-lb delete_influxdb-with-lb apply_influxdb-with-nodeport delete_influxdb-with-nodeport
+        apply_influxdb-with-lb delete_influxdb-with-lb apply_influxdb-with-nodeport delete_influxdb-with-nodeport \
+        apply_mongo-with-lb delete_mongo-with-lb apply_mongo-with-nodeport delete_mongo-with-nodeport
 
 all: deploy_all
 
@@ -72,3 +73,15 @@ apply_influxdb-with-nodeport:
 
 delete_influxdb-with-nodeport:
 	(cd influxdb-2.0.4-nodeport && microk8s kubectl delete -f .)
+
+apply_mongo-with-lb:
+	(cd mongo-latest-lb && microk8s kubectl apply -f .)
+
+delete_mongo-with-lb:
+	(cd mongo-latest-lb && microk8s kubectl delete -f .)
+
+apply_mongo-with-nodeport:
+	(cd mongo-latest-nodeport && microk8s kubectl apply -f .)
+
+delete_mongo-with-nodeport:
+	(cd mongo-latest-nodeport && microk8s kubectl delete -f .)
