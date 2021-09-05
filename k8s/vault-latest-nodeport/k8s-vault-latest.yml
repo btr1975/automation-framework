@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-deploy
+  labels:
+    app: vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault
+  template:
+    metadata:
+      labels:
+        app: vault
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: vault
+        image: vault:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8200
+        env:
+        - name: VAULT_LOCAL_CONFIG
+          value: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
+        volumeMounts:
+        - name: vault-logs
+          mountPath: /vault/logs
+        - name: vault-file
+          mountPath: /vault/file
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+      volumes:
+      - name: vault-logs
+        persistentVolumeClaim:
+          claimName: vault-logs-claim
+      - name: vault-file
+        persistentVolumeClaim:
+          claimName: vault-file-claim
