@@ -10,13 +10,15 @@ from registry_browser import DockerRegistryApi
 
 app = Flask(__name__, template_folder='./templates')
 REGISTRY_SERVER = os.environ.get('REGISTRY_SERVER') or 'http://127.0.0.1'
+REGISTRY_SERVER_PORT = os.environ.get('REGISTRY_SERVER_PORT') or 5000
 
 print(f'USING REGISTRY_SERVER {REGISTRY_SERVER}')
+print(f'USING REGISTRY_SERVER_PORT {REGISTRY_SERVER_PORT}')
 
 @app.route('/', methods=['GET'])
 def home():
     if flask.request.method == 'GET':
-        registry = DockerRegistryApi(REGISTRY_SERVER)
+        registry = DockerRegistryApi(REGISTRY_SERVER, port=int(REGISTRY_SERVER_PORT))
         return render_template(
             'home.html',
             title='Docker Registry Browser Home',
@@ -31,7 +33,7 @@ def home():
 @app.route('/repository/<repository_name>', methods=['GET'])
 def repository(repository_name):
     if flask.request.method == 'GET':
-        registry = DockerRegistryApi(REGISTRY_SERVER)
+        registry = DockerRegistryApi(REGISTRY_SERVER, port=int(REGISTRY_SERVER_PORT))
         return render_template(
             'repository-info.html',
             title=f'Docker Registry Repository Tags {repository_name}',
@@ -47,7 +49,7 @@ def repository(repository_name):
 @app.route('/manifest/<repository_name>/<tag>', methods=['GET'])
 def repository_tag_manifest(repository_name, tag):
     if flask.request.method == 'GET':
-        registry = DockerRegistryApi(REGISTRY_SERVER)
+        registry = DockerRegistryApi(REGISTRY_SERVER, port=int(REGISTRY_SERVER_PORT))
         manifest = registry.get_pretty_json(registry.get_repository_manifest(repository_name, tag))
         return render_template(
             'repository-tag-manifest-info.html',

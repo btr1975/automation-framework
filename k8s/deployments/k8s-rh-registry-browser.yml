@@ -23,5 +23,7 @@ spec:
         env:
         - name: REGISTRY_SERVER
           value: "http://10.0.0.101"
+        - name: REGISTRY_SERVER_PORT
+          value: 32000
         ports:
-        - containerPort: 80
+        - containerPort: 8080

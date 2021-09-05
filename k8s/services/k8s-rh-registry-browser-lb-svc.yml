@@ -7,6 +7,6 @@ spec:
   type: LoadBalancer
   ports:
   - port: 8088
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: registry-browser

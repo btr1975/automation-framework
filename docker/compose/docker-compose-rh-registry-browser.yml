@@ -9,7 +9,7 @@ services:
         hostname: rh-registry-browser
         container_name: rh-registry-browser
         ports:
-            - "8088:80"
+            - "8088:8080"
         environment:
             REGISTRY_SERVER: http://10.0.0.101
         restart: on-failure

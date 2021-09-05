@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/python-38
 
-LABEL version="2021.6.3.001"
+LABEL version="2021.9.4.001"
 LABEL description="Docker Registry Browser RHEL8"
 LABEL maintainer="Ben Trachtenberg"
 
