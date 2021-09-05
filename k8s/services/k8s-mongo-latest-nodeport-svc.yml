@@ -11,8 +11,8 @@ spec:
     nodePort: 31121        # Port to expose on the nodes
     protocol: TCP
     name: mongo-db
-  - port: 8181             # Port apps in cluster use
-    targetPort: 8181       # Port to connect to container
+  - port: 8081             # Port apps in cluster use
+    targetPort: 8081       # Port to connect to container
     nodePort: 31122        # Port to expose on the nodes
     protocol: TCP
     name: mongo-express-gui

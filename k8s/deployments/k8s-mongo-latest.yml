@@ -36,10 +36,10 @@ spec:
         image: mongo-express
         imagePullPolicy: Always
         ports:
-        - containerPort: 8181
+        - containerPort: 8081
         env:
-        - name: ME_CONFIG_MONGODB_SERVER
-          value: "mongo"
+        - name: ME_CONFIG_MONGODB_URL
+          value: "mongodb://root:example@mongo:27017/"
         - name: ME_CONFIG_MONGODB_ADMINUSERNAME
           value: "root"
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
