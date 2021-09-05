@@ -6,7 +6,8 @@ SHELL := /bin/bash
 
 .PHONY: all clean \
         apply_vault-with-lb delete_vault-with-lb apply_vault-with-nodeport \
-        apply_batfish-with-lb delete_batfish-with-lb apply_batfish-with-nodeport delete_batfish-with-nodeport
+        apply_batfish-with-lb delete_batfish-with-lb apply_batfish-with-nodeport delete_batfish-with-nodeport \
+        apply_elk-with-lb delete_elk-with-lb apply_elk-with-nodeport delete_elk-with-nodeport
 
 all: deploy_all
 
@@ -33,3 +34,15 @@ apply_batfish-with-nodeport:
 
 delete_batfish-with-nodeport:
 	(cd batfish-latest-nodeport && microk8s kubectl delete -f .)
+
+apply_elk-with-lb:
+	(cd elk-stack-latest-lb && microk8s kubectl apply -f .)
+
+delete_elk-with-lb:
+	(cd elk-stack-latest-lb && microk8s kubectl delete -f .)
+
+apply_elk-with-nodeport:
+	(cd elk-stack-latest-nodeport && microk8s kubectl apply -f .)
+
+delete_elk-with-nodeport:
+	(cd elk-stack-latest-nodeport && microk8s kubectl delete -f .)
