@@ -110,6 +110,7 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 * [Kubernetes YAML](https://kubernetes.io/docs/reference/)
 * [microk8s](https://microk8s.io/)
 * [microk8s add-ons](https://microk8s.io/docs/addons)
+* [kompose](https://kompose.io/)
 
 ### What is Available in Swarm
 
