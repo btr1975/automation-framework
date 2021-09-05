@@ -10,13 +10,16 @@ spec:
     targetPort: 8888       # Port to connect to container
     nodePort: 31117        # Port to expose on the nodes
     protocol: TCP
+    name: jupyter-nb
   - port: 9997             # Port apps in cluster use
     targetPort: 9997       # Port to connect to container
     nodePort: 31118        # Port to expose on the nodes
     protocol: TCP
+    name: java-1
   - port: 9996             # Port apps in cluster use
     targetPort: 9996       # Port to connect to container
     nodePort: 31119        # Port to expose on the nodes
     protocol: TCP
+    name: java-2
   selector:
     app: batfish
