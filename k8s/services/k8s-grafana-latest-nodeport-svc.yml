@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service-nodeport
+spec:
+  type: NodePort
+  ports:
+  - port: 3000             # Port apps in cluster use
+    targetPort: 3000       # Port to connect to container
+    nodePort: 31113        # Port to expose on the nodes
+    protocol: TCP
+  selector:
+    app: grafana

@@ -6,9 +6,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 8088
-    targetPort: 8080
-    nodePort: 31112
+  - port: 8088             # Port apps in cluster use
+    targetPort: 8080       # Port to connect to container
+    nodePort: 31112        # Port to expose on the nodes
     protocol: TCP
   selector:
     app: registry-browser
