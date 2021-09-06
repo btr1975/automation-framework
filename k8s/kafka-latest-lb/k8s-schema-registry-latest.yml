@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: schema-registry
-        hostname: schema-registry
         image: confluentinc/cp-schema-registry:latest
         imagePullPolicy: Always
         env:

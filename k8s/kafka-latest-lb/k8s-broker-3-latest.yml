@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: broker-3
-        hostname: broker-3
         image: confluentinc/cp-server:latest
         imagePullPolicy: Always
         ports:

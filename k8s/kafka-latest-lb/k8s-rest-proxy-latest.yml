@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: rest-proxy
-        hostname: rest-proxy
         image: confluentinc/cp-kafka-rest:latest
         imagePullPolicy: Always
         env:

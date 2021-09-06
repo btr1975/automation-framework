@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: zookeeper
-        hostname: zookeeper
         image: confluentinc/cp-zookeeper:latest
         imagePullPolicy: Always
         ports:

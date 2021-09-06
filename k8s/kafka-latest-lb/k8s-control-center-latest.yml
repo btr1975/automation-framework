@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: control-center
-        hostname: control-center
         image: confluentinc/cp-enterprise-control-center:latest
         imagePullPolicy: Always
         ports:
