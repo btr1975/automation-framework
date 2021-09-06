@@ -8,6 +8,6 @@ spec:
   ports:
   - port: 8081
     targetPort: 8081
-    name: control-center
+    name: schema-registry
   selector:
     app: schema-registry

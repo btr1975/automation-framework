@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-proxy-deploy
+  labels:
+    app: rest-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-proxy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: rest-proxy
+    spec:
+      containers:
+      - name: rest-proxy
+        hostname: rest-proxy
+        image: confluentinc/cp-kafka-rest:latest
+        imagePullPolicy: Always
+        env:
+        - name: KAFKA_REST_BOOTSTRAP_SERVERS
+          value: broker-1:29092,broker-2:9093,broker-3:9094
+        - name: KAFKA_REST_HOST_NAME
+          value: rest-proxy
+        - name: KAFKA_REST_LISTENERS
+          value: http://0.0.0.0:8082
+        - name: KAFKA_REST_SCHEMA_REGISTRY_URL
+          value: http://schema-registry:8081
+        ports:
+        - containerPort: 8082
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "1"
