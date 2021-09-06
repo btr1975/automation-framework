@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: control-center-deploy
+  labels:
+    app: control-center
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: control-center
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: control-center
+    spec:
+      containers:
+      - name: control-center
+        hostname: control-center
+        image: confluentinc/cp-enterprise-control-center:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9021
+        resources:
+          requests:
+            memory: "1.5Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        env:
+        - name: CONFLUENT_METRICS_TOPIC_REPLICATION
+          value: "1"
+        - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
+          value: broker-1:9092,broker-2:9093,broker-3:9094
+        - name: CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS
+          value: "1"
+        - name: CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS
+          value: "1"
+        - name: CONTROL_CENTER_REPLICATION_FACTOR
+          value: "1"
+        - name: CONTROL_CENTER_SCHEMA_REGISTRY_URL
+          value: http://schema-registry:8081
+        - name: CONTROL_CENTER_ZOOKEEPER_CONNECT
+          value: zookeeper:2181
+        - name: PORT
+          value: "9021"
