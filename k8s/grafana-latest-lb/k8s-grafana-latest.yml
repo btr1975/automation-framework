@@ -1,4 +1,4 @@
----
+--- # Version 2021.9.5.001
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,3 +22,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
