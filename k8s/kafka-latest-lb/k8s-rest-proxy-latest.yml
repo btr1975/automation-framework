@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: KAFKA_REST_BOOTSTRAP_SERVERS
-          value: broker-1:29092,broker-2:9093,broker-3:9094
+          value: broker-1:9092,broker-2:9093,broker-3:9094
         - name: KAFKA_REST_HOST_NAME
           value: rest-proxy
         - name: KAFKA_REST_LISTENERS
