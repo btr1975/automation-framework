@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: broker-3-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9094
+    targetPort: 9094
+    name: broker-3
+  selector:
+    app: broker-3
