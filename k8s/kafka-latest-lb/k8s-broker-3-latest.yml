@@ -25,7 +25,7 @@ spec:
         - name: CONFLUENT_METRICS_ENABLE
           value: "true"
         - name: CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS
-          value: broker-3:29094
+          value: localhost:9094
         - name: CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS
           value: "1"
         - name: CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT
@@ -37,11 +37,11 @@ spec:
         - name: KAFKA_ADVERTISED_HOST_NAME
           value: broker-3
         - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
-          value: PLAINTEXT:PLAINTEXT
+          value: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
         - name: KAFKA_LISTENERS
-          value: PLAINTEXT://localhost:9094
+          value: PLAINTEXT://0.0.0.0:29094,PLAINTEXT_HOST://0.0.0.0:9094
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://broker-3:9094
+          value: PLAINTEXT://localhost:29094,PLAINTEXT_HOST://broker-3:9094
         - name: KAFKA_BROKER_ID
           value: "3"
         - name: KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR
