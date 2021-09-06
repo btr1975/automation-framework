@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schema-registry-deploy
+  labels:
+    app: schema-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: schema-registry
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: schema-registry
+    spec:
+      containers:
+      - name: schema-registry
+        hostname: schema-registry
+        image: confluentinc/cp-schema-registry:latest
+        imagePullPolicy: Always
+        env:
+        - name: SCHEMA_REGISTRY_HOST_NAME
+          value: schema-registry
+        - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+          value: zookeeper:2181
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
