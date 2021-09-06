@@ -1,4 +1,4 @@
----
+--- # Version 2021.9.5.001
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,6 +27,13 @@ spec:
         volumeMounts:
         - name: batfish-data
           mountPath: /data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
       volumes:
       - name: batfish-data
         persistentVolumeClaim:
