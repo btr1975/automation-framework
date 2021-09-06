@@ -32,6 +32,13 @@ spec:
           mountPath: /data/db
         - name: mongo-configdb
           mountPath: /data/configdb
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
       volumes:
       - name: mongo-db
         persistentVolumeClaim:
@@ -68,3 +75,10 @@ spec:
           value: "root"
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
           value: "example"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
