@@ -27,6 +27,13 @@ spec:
           mountPath: /var/lib/redis
         - name: nautobot-postgresql
           mountPath: /var/lib/postgresql/12/main
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "500m"
+          limits:
+            memory: "6Gi"
+            cpu: "1"
       volumes:
       - name: nautobot-redis
         persistentVolumeClaim:
