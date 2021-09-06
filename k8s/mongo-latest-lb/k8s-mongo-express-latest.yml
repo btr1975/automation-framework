@@ -1,0 +1,38 @@
+---  # Version 2021.9.6.001
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express-deploy
+  labels:
+    app: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: mongo-express
+        image: mongo-express
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          value: "root"
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          value: "example"
+        - name: ME_CONFIG_MONGODB_URL
+          value: mongodb://root:example@mongo:27017/
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

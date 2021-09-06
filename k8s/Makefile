@@ -77,19 +77,15 @@ delete_influxdb-with-nodeport:
 	(cd influxdb-2.0.4-nodeport && microk8s kubectl delete -f .)
 
 apply_mongo-with-lb:
-	echo NOT READY YET!!
 	(cd mongo-latest-lb && microk8s kubectl apply -f .)
 
 delete_mongo-with-lb:
-	echo NOT READY YET!!
 	(cd mongo-latest-lb && microk8s kubectl delete -f .)
 
 apply_mongo-with-nodeport:
-	echo NOT READY YET!!
 	(cd mongo-latest-nodeport && microk8s kubectl apply -f .)
 
 delete_mongo-with-nodeport:
-	echo NOT READY YET!!
 	(cd mongo-latest-nodeport && microk8s kubectl delete -f .)
 
 apply_nautobot-with-lb:
