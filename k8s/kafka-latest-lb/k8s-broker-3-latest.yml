@@ -34,6 +34,8 @@ spec:
           value: http://schema-registry:8081
         - name: CONFLUENT_SUPPORT_CUSTOMER_ID
           value: anonymous
+        - name: KAFKA_ADVERTISED_HOST_NAME
+          value: broker-3
         - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
           value: PLAINTEXT:PLAINTEXT
         - name: KAFKA_LISTENERS
