@@ -1,4 +1,4 @@
---- # Version 2021.9.5.001
+--- # Version 2021.9.5.002
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -37,7 +37,7 @@ spec:
         resources:
           requests:
             memory: "256Mi"
-            cpu: "500m"
+            cpu: "0.5"
           limits:
             memory: "512Mi"
             cpu: "1"
