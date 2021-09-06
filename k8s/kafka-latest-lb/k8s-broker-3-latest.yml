@@ -35,7 +35,7 @@ spec:
         - name: CONFLUENT_SUPPORT_CUSTOMER_ID
           value: anonymous
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://localhost:29094,PLAINTEXT_HOST://:9094
+          value: PLAINTEXT://broker-3:9094,PLAINTEXT_HOST://:9094
         - name: KAFKA_BROKER_ID
           value: "3"
         - name: KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR
