@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f docker-compose-kafka-latest.yml
+      -o ./kafka-latest-k8s/
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: broker-1
+  name: broker-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: broker-1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f docker-compose-kafka-latest.yml
+          -o ./kafka-latest-k8s/
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: broker-1
+    spec:
+      containers:
+      - env:
+        - name: CONFLUENT_METRICS_ENABLE
+          value: "true"
+        - name: CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS
+          value: broker-1:29092
+        - name: CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS
+          value: "1"
+        - name: CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT
+          value: zookeeper:2181
+        - name: CONFLUENT_SCHEMA_REGISTRY_URL
+          value: http://schema-registry:8081
+        - name: CONFLUENT_SUPPORT_CUSTOMER_ID
+          value: anonymous
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://:9092
+        - name: KAFKA_BROKER_ID
+          value: "1"
+        - name: KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR
+          value: "1"
+        - name: KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS
+          value: "0"
+        - name: KAFKA_LISTENERS
+          value: PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://:9092
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+        - name: KAFKA_METRIC_REPORTERS
+          value: io.confluent.metrics.reporter.ConfluentMetricsReporter
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "1"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper:2181
+        image: confluentinc/cp-server:latest
+        imagePullPolicy: ""
+        name: broker-1
+        ports:
+        - containerPort: 9092
+        resources: {}
+      hostname: broker-1
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
