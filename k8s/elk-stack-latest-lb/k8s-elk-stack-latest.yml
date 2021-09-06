@@ -1,4 +1,4 @@
----
+--- # Version 2021.9.5.001
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,3 +24,10 @@ spec:
         - containerPort: 5601
         - containerPort: 9200
         - containerPort: 5044
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "500m"
+          limits:
+            memory: "8Gi"
+            cpu: "1"
