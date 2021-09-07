@@ -1,0 +1,43 @@
+--- # Version 2021.9.6.001
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-server
+  labels:
+    app: teamcity-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity-server
+  template:
+    metadata:
+      labels:
+        app: teamcity-server
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: teamcity-server
+        image: jetbrains/teamcity-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8111
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: teamcity-server-datadir
+          mountPath: /data/teamcity_server/datadir
+        - name: teamcity-server-logs
+          mountPath: /opt/teamcity/logs
+      volumes:
+      - name: teamcity-server-datadir
+        persistentVolumeClaim:
+          claimName: teamcity-server-datadir-claim
+      - name: teamcity-server-logs
+        persistentVolumeClaim:
+          claimName: teamcity-server-logs-claim

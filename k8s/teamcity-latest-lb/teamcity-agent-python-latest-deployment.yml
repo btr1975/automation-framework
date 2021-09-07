@@ -1,0 +1,32 @@
+--- # Version 2021.9.6.001
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-agent-python
+  labels:
+    app: teamcity-agent-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity-agent-python
+  template:
+    metadata:
+      labels:
+        app: teamcity-agent-python
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: teamcity-agent-python
+        image: localhost:32000/teamcity-agent-python:latest
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_URL
+          value: "http://teamcity-server:8111"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"

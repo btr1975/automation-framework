@@ -1,0 +1,28 @@
+---
+version: '3.4'
+services:
+    teamcity-server-instance:
+        image: jetbrains/teamcity-server:latest
+        container_name: teamcity-server-instance
+        ports:
+        -   8111:8111
+        volumes:
+        -   "teamcity-server-datadir-compose:/data/teamcity_server/datadir"
+        -   "teamcity-server-logs-compose:/opt/teamcity/logs"
+        restart: on-failure
+    teamcity-agent-1:
+        build:
+            context: ../dockerfile
+            dockerfile: Dockerfile-Python-Agent
+        image: localhost:32000/teamcity-agent-python:latest
+        container_name: teamcity-agent-1
+        environment:
+            SERVER_URL: http://10.0.0.102:8111
+        volumes:
+        -   "teamcity-agent-1-conf-compose:/data/teamcity_agent/conf"
+        restart: on-failure
+
+volumes:
+    teamcity-server-datadir-compose:
+    teamcity-server-logs-compose:
+    teamcity-agent-1-conf-compose:

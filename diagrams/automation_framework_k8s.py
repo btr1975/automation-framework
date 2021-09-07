@@ -23,7 +23,7 @@ def main():
         'ratio': 'expand'
     }
 
-    with Diagram(name='Automation Framework Compose', direction='LR', graph_attr=graph_attr):
+    with Diagram(name='Automation Framework Kubernetes', direction='LR', graph_attr=graph_attr):
         with Cluster('Docker Cluster'):
             docker = Docker('Docker')
 
@@ -38,27 +38,6 @@ def main():
 
             with Cluster('BatFish'):
                 batfish_container = Custom('BatFish\ntcp:8888\ntcp:9997\ntcp:9996', 'custom_icons/BatFish.png')
-
-        with Cluster('Kafka Cluster'):
-            with Cluster('Zookeeper'):
-                Zookeeper('Zookeeper\ntcp:2181')
-
-            with Cluster('REST Proxy'):
-                rest_proxy = Custom('REST Proxy\ntcp:8082', 'custom_icons/REST-API.png')
-
-            with Cluster('Control Center'):
-                control_center = Kafka('Control Center\ntcp:9021')
-
-            with Cluster('Schema Registry'):
-                schema_registry = Storage('Schema Registry\ntcp:8081')
-
-            with Cluster('Brokers'):
-                broker_1 = Kafka('Broker 1\ntcp:9092')
-                kafka_brokers = [
-                    broker_1,
-                    Kafka('Broker 2\ntcp:9093'),
-                    Kafka('Broker 3\ntcp:9094')
-                ]
 
         with Cluster('Secrets Managers'):
             vault = Vault('HashiCorp Vault\ntcp:8200')
@@ -83,10 +62,6 @@ def main():
             with Cluster('Grafana'):
                 grafana = Grafana('Grafana\ntcp:3000')
 
-        with Cluster('Inventory and Connectivity'):
-            with Cluster('Inventory'):
-                nautobot = Custom('Nautobot\ntcp:8000', 'custom_icons/Nautobot.jpeg')
-
         with Cluster('Database'):
             with Cluster('Mongo dB'):
                 mongodb = Mongodb('MongoDb\ntcp:27017')
@@ -99,16 +74,11 @@ def main():
         with Cluster('CI/CD'):
             team_city = TC('TeamCity')
 
-        kafka_brokers - python_container
 
         python_container - vault
 
-        python_container - nautobot
-
-        nautobot - logstash
         python_container - logstash
 
-        nautobot - infulxdb
         python_container - infulxdb
 
         python_container - mongodb

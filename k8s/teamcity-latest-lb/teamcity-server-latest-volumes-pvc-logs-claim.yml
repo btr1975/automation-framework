@@ -1,0 +1,12 @@
+--- # Version 2021.9.6.001
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: teamcity-server-logs-claim
+spec:
+  accessModes:
+  - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 20Gi

@@ -124,7 +124,7 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 
 ![Automation Framework Swarm](diagrams/automation_framework_swarm.png)
 
-### What is Available in Compose and Kubernetes
+### What is Available in Compose
 
 | ARCHITECTURE | USED FOR |
 |---|---|
@@ -139,5 +139,20 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 | Grafana | Pretty Graphs |
 | Docker Registry | To hold docker images |
 | Docker Registry Browser | To Browse the Registry |
+| JetBrains TeamCity | CI/CD |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
+
+### What is Available in Kubernetes
+
+| ARCHITECTURE | USED FOR |
+|---|---|
+| ELK Elastic Search | Logging search, various other stuff |
+| Hashicorp Vault | Secrets Storage |
+| MongoDB | Document dB |
+| Batfish | Modeling |
+| Influxdb | Series dB |
+| Grafana | Pretty Graphs |
+| JetBrains TeamCity | CI/CD |
+
+![Automation Framework Compose](diagrams/automation_framework_kubernetes.png)

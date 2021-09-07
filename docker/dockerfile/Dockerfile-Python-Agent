@@ -1,0 +1,13 @@
+FROM jetbrains/teamcity-agent:EAP-linux-sudo
+
+LABEL version="2021.9.6.001"
+LABEL description="TeamCity Python3 agent"
+LABEL maintainer="Ben Trachtenberg"
+
+SHELL ["/bin/bash", "-c"]
+
+RUN sudo apt-get update \
+    && sudo apt-get install -qy \
+    python3-pip \
+    python3-venv
+
