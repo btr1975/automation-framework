@@ -1,4 +1,4 @@
---- # Version 2021.9.6.001
+--- # Version 2021.9.14.001
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,6 +16,9 @@ spec:
         app: teamcity-server
     spec:
       terminationGracePeriodSeconds: 1
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
       containers:
       - name: teamcity-server
         image: jetbrains/teamcity-server:latest
