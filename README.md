@@ -147,6 +147,7 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 
 | ARCHITECTURE | USED FOR |
 |---|---|
+| Kafka | As a message bus |
 | ELK Elastic Search | Logging search, various other stuff |
 | Hashicorp Vault | Secrets Storage |
 | MongoDB | Document dB |

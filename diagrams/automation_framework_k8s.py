@@ -24,6 +24,29 @@ def main():
     }
 
     with Diagram(name='Automation Framework Kubernetes', direction='LR', graph_attr=graph_attr):
+        with Cluster('Kafka Cluster'):
+            with Cluster('Zookeeper'):
+                Zookeeper('Zookeeper\ntcp:2181')
+
+            with Cluster('REST Proxy'):
+                rest_proxy = Custom('REST Proxy\ntcp:8082', 'custom_icons/REST-API.png')
+
+            with Cluster('Control Center'):
+                control_center = Kafka('Control Center\ntcp:9021')
+
+            """ Removed for now not working right
+            with Cluster('Schema Registry'):
+                schema_registry = Storage('Schema Registry\ntcp:8081')
+            """
+
+            with Cluster('Brokers'):
+                broker_1 = Kafka('Broker 1\ntcp:9092')
+                kafka_brokers = [
+                    broker_1,
+                    Kafka('Broker 2\ntcp:9093'),
+                    Kafka('Broker 3\ntcp:9094')
+                ]
+
         with Cluster('Docker Cluster'):
             docker = Docker('Docker')
 
@@ -74,6 +97,7 @@ def main():
         with Cluster('CI/CD'):
             team_city = TC('TeamCity')
 
+        kafka_brokers - python_container
 
         python_container - vault
 
