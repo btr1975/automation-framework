@@ -1,3 +1,4 @@
+--- # Version 2021.9.14.001 Currently something is wrong with config
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,6 +25,8 @@ spec:
           value: schema-registry
         - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
           value: zookeeper:2181
+        - name: SCHEMA_REGISTRY_LISTENERS
+          value: http://schema-registry:8081
         ports:
         - containerPort: 8081
         resources:

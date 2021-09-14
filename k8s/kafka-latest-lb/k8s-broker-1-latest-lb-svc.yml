@@ -9,5 +9,8 @@ spec:
   - port: 9092
     targetPort: 9092
     name: broker-1
+  - port: 29092
+    targetPort: 29092
+    name: broker-1-local
   selector:
     app: broker-1

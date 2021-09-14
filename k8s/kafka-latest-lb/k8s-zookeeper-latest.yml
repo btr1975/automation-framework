@@ -1,3 +1,4 @@
+--- # Version 2021.9.14.001
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,6 +23,8 @@ spec:
         ports:
         - containerPort: 2181
         env:
+        - name: ZOOKEEPER_HOST_NAME
+          value: "zookeeper"
         - name: ZOOKEEPER_CLIENT_PORT
           value: "2181"
         - name: ZOOKEEPER_TICK_TIME
