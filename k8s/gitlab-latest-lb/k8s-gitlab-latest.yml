@@ -1,0 +1,50 @@
+--- # Version 2021.11.22.001
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-deploy
+  labels:
+    app: gitlab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 22
+        - containerPort: 443
+        - containerPort: 80
+        volumeMounts:
+        - name: gitlab-etc
+          mountPath: /etc/gitlab
+        - name: gitlab-var-opt
+          mountPath: /var/opt/gitlab
+        - name: gitlab-var-log
+          mountPath: /var/log/gitlab
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1.0"
+          limits:
+            memory: "2Gi"
+            cpu: "2.0"
+      volumes:
+      - name: gitlab-etc
+        persistentVolumeClaim:
+          claimName: gitlab-etc-claim
+      - name: gitlab-var-opt
+        persistentVolumeClaim:
+          claimName: gitlab-var-opt-claim
+      - name: gitlab-var-log
+        persistentVolumeClaim:
+          claimName: gitlab-var-log-claim

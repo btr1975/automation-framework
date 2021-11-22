@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 30022
+    targetPort: 22
+    name: ssh
+  - port: 30080
+    targetPort: 80
+    name: http
+  - port: 30443
+    targetPort: 443
+    name: https
+  selector:
+    app: gitlab
