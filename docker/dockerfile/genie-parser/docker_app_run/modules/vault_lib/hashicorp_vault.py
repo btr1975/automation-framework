@@ -1,12 +1,13 @@
 """
 Class to get data from HashiCorp Vault
 """
+import os
 import hvac
 
 
-HVAC_URL = 'http://10.0.0.101:8200'
-HVAC_TOKEN = 's.VeIER2pQZ6oHPdFNauVAYSUc'
-HVAC_PATH = 'test'
+HVAC_URL = os.environ.get('HVAC_URL') or 'http://10.0.0.101:8200'
+HVAC_TOKEN = os.environ.get('HVAC_TOKEN') or 's.VeIER2pQZ6oHPdFNauVAYSUc'
+HVAC_PATH = os.environ.get('HVAC_PATH') or 'test'
 
 
 class VaultDataKv2:
