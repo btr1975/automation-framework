@@ -1,0 +1,39 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "mongo"
+  labels:
+    app: "mongo"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "mongo"
+  template:
+    metadata:
+      labels:
+        app: "mongo"
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: "mongo"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+        {{- toYaml .Values.environmentVariables | nindent 8 }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
+        volumeMounts:
+        {{- toYaml .Values.volumeMounts | nindent 8 }}
+      volumes:
+      {{- toYaml .Values.volumes | nindent 6 }}

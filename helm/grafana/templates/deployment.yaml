@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deploy
+  labels:
+    app: grafana
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: grafana
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
