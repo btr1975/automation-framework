@@ -1,23 +1,23 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-  name: grafana-deploy
+  name: "grafana-deploy"
   labels:
-    app: grafana
+    app: "grafana"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: grafana
+      app: "grafana"
   template:
     metadata:
       labels:
-        app: grafana
+        app: "grafana"
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: grafana
+      - name: "grafana"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
