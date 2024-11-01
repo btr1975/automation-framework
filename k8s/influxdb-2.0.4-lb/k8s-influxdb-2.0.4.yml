@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: influxdb2
-        image: influxdb:2.0.4
+        image: docker.io/library/influxdb:2.0.4
         imagePullPolicy: Always
         ports:
         - containerPort: 8086
