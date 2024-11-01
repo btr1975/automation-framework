@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: gitlab
-        image: gitlab/gitlab-ce:latest
+        image: docker.io/gitlab/gitlab-ce:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 22

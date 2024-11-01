@@ -1,0 +1,39 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "gitlab"
+  labels:
+    app: "gitlab"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "gitlab"
+  template:
+    metadata:
+      labels:
+        app: "gitlab"
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: "gitlab"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote}}
+        ports:
+        - containerPort: {{ .Values.service.ssh.port }}
+        - containerPort: {{ .Values.service.https.port }}
+        - containerPort: {{ .Values.service.http.port }}
+        volumeMounts:
+        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
+      volumes:
+      {{- toYaml .Values.volumes | nindent 6 }}

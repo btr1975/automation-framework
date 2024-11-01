@@ -1,0 +1,25 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "gitlab-service"
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.service.ssh.port }}
+    targetPort: {{ .Values.service.ssh.port }}
+    nodePort: {{ .Values.service.ssh.nodePort }}
+    name: {{ .Values.service.ssh.name | quote }}
+    protocol: "TCP"
+  - port: {{ .Values.service.http.port }}
+    targetPort: {{ .Values.service.http.port }}
+    nodePort: {{ .Values.service.http.nodePort }}
+    name: {{ .Values.service.http.name | quote }}
+    protocol: "TCP"
+  - port: {{ .Values.service.https.port }}
+    targetPort: {{ .Values.service.https.port }}
+    nodePort: {{ .Values.service.https.nodePort }}
+    name: {{ .Values.service.https.name | quote }}
+    protocol: "TCP"
+  selector:
+    app: "gitlab"
