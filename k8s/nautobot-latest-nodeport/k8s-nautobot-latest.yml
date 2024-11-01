@@ -1,4 +1,4 @@
---- # FIXME: Need to figure out errors in Nautobot image nautobot-lab
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: nautobot
-        image: networktocode/nautobot-lab:latest
+        image: docker.io/networktocode/nautobot-lab:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000

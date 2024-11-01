@@ -1,0 +1,37 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "nautobot-lab"
+  labels:
+    app: "nautobot-lab"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "nautobot-lab"
+  template:
+    metadata:
+      labels:
+        app: "nautobot-lab"
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: "nautobot-lab"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        volumeMounts:
+        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
+      volumes:
+      {{- toYaml .Values.volumes | nindent 6 }}

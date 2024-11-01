@@ -1,0 +1,35 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "elk-stack"
+  labels:
+    app: "elk-stack"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "elk-stack"
+  template:
+    metadata:
+      labels:
+        app: "elk-stack"
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: "elk-stack"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.kibana.port }}
+        - containerPort: {{ .Values.service.elasticsearch.port }}
+        - containerPort: {{ .Values.service.logstash.port }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
