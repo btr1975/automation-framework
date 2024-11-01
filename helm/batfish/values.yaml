@@ -1,0 +1,56 @@
+---
+# Default values for batfish.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: "docker.io/batfish/allinone"
+  # This sets the pull policy for images.
+  pullPolicy: "Always"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: "NodePort"
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  jupyternb:
+    port: 8888
+    nodePort: 31117
+    name: "jupyter-nb"
+  java1:
+    port: 9997
+    nodePort: 31118
+    name: "java-1"
+  java2:
+    port: 9996
+    nodePort: 31119
+    name: "java-2"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: "500m"
+  #   memory: "1Gi"
+  # requests:
+  #   cpu: "250m"
+  #   memory: "512Mi"
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: "batfish-data"
+    persistentVolumeClaim:
+      claimName: "batfish-claim"
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: "batfish-data"
+    mountPath: "/data"

@@ -1,0 +1,39 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "batfish"
+  labels:
+    app: "batfish"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "batfish"
+  template:
+    metadata:
+      labels:
+        app: "batfish"
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: "batfish"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.jupyternb.port }}
+        - containerPort: {{ .Values.service.java1.port }}
+        - containerPort: {{ .Values.service.java2.port }}
+        volumeMounts:
+        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
+      volumes:
+      {{- toYaml .Values.volumes | nindent 6 }}
