@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: vault
-        image: vault:latest
+        image: docker.io/library/vault:1.13.3
         imagePullPolicy: Always
         ports:
         - containerPort: 8200

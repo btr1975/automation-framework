@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: grafana
-        image: grafana/grafana:latest-ubuntu
+        image: docker.io/grafana/grafana:latest-ubuntu
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

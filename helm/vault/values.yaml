@@ -1,0 +1,57 @@
+---
+# Default values for vault.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: "docker.io/library/vault"
+  # This sets the pull policy for images.
+  pullPolicy: "Always"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.13.3"
+
+
+securityContext:
+  capabilities:
+    add:
+      - "IPC_LOCK"
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: "NodePort"
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 8200
+  nodePort: 31124
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: "500m"
+  #   memory: "128Mi"
+  # requests:
+  #   cpu: "250m"
+  #   memory: "64Mi"
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: "vault-logs"
+    persistentVolumeClaim:
+      claimName: "vault-logs-claim"
+  - name: "vault-file"
+    persistentVolumeClaim:
+      claimName: "vault-file-claim"
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: "vault-logs"
+    mountPath: "/vault/logs"
+  - name: "vault-file"
+    mountPath: "/vault/file"

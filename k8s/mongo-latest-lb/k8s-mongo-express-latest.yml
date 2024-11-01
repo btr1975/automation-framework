@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: mongo-express
-        image: mongo-express
+        image: docker.io/library/mongo-express:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8081

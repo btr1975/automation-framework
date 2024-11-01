@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: mongo
-        image: mongo
+        image: docker.io/library/mongo:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 27017

@@ -1,7 +1,6 @@
----
 apiVersion: "v2"
-name: "grafana"
-description: "A Helm chart for Kubernetes for Grafana"
+name: "vault"
+description: "A Helm chart for Kubernetes for HashiCorp Vault"
 
 # A chart can be either an 'application' or a 'library' chart.
 #
