@@ -14,7 +14,7 @@ image:
   # This sets the pull policy for images.
   pullPolicy: "Always"
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "8.15.1"
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:

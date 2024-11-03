@@ -14,7 +14,7 @@ image:
   # This sets the pull policy for images.
   pullPolicy: "Always"
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "2024.07.3"
 
 securityContext:
   runAsUser: 0

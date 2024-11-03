@@ -14,19 +14,19 @@ image:
   pullPolicy: "Always"
   broker:
     repository: "confluentinc/cp-server"
-    tag: "latest"
+    tag: "7.7.1"
   controlCenter:
     repository: "confluentinc/cp-enterprise-control-center"
-    tag: "latest"
+    tag: "7.7.1"
   restProxy:
     repository: "confluentinc/cp-kafka-rest"
-    tag: "latest"
+    tag: "7.7.1"
   schemaRegistry:
     repository: "confluentinc/cp-schema-registry"
-    tag: "latest"
+    tag: "7.7.1"
   zooKeeper:
     repository: "confluentinc/cp-zookeeper"
-    tag: "latest"
+    tag: "7.7.1"
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:

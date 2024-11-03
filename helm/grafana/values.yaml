@@ -12,7 +12,7 @@ replicaCount: 1
 image:
   repository: "docker.io/grafana/grafana"
   pullPolicy: "Always"
-  tag: "latest-ubuntu"
+  tag: "11.3.0"
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
