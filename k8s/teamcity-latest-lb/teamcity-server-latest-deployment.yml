@@ -21,7 +21,7 @@ spec:
         runAsGroup: 0
       containers:
       - name: teamcity-server
-        image: jetbrains/teamcity-server:latest
+        image: docker.io/jetbrains/teamcity-server:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8111
