@@ -3,6 +3,11 @@ apiVersion: "apps/v1"
 kind: Deployment
 metadata:
   name: "broker-2"
+  {{- if .Release.Namespace | ne "default" }}
+  namespace: {{ .Release.Namespace | quote }}
+  {{- else if .Values.namespace | ne "default" }}
+  namespace: {{ .Values.namespace | quote }}
+  {{- end }}
   labels:
     app: "broker-2"
 spec:
