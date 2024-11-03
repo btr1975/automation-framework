@@ -1,0 +1,16 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "broker-3"
+spec:
+  type: {{ .Values.service.broker3.type | quote }}
+  ports:
+  - port: {{ .Values.service.broker3.port }}
+    targetPort: {{ .Values.service.broker3.port }}
+    name: "broker-3"
+  - port: {{ .Values.service.broker3.local }}
+    targetPort: {{ .Values.service.broker3.local }}
+    name: "broker-3-local"
+  selector:
+    app: "broker-3"

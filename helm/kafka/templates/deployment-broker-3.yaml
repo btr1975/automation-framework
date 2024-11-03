@@ -1,0 +1,66 @@
+---
+apiVersion: "apps/v1"
+kind: Deployment
+metadata:
+  name: "broker-3"
+  labels:
+    app: "broker-3"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "broker-3"
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: "broker-3"
+    spec:
+      containers:
+      - name: "broker-3"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.broker.repository }}:{{ .Values.image.broker.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.broker3.port }}
+        env:
+        - name: "CONFLUENT_METRICS_ENABLE"
+          value: "true"
+        - name: "CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS"
+          value: "localhost:{{ .Values.service.broker3.port }}"
+        - name: "CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS"
+          value: "1"
+        - name: "CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT"
+          value: "zookeeper:{{ .Values.service.zooKeeper.port }}"
+        - name: "CONFLUENT_SCHEMA_REGISTRY_URL"
+          value: "http://schema-registry:{{ .Values.service.schemaRegistry.port }}"
+        - name: "CONFLUENT_SUPPORT_CUSTOMER_ID"
+          value: "anonymous"
+        - name: "KAFKA_ADVERTISED_HOST_NAME"
+          value: "broker-3"
+        - name: "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
+          value: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+        - name: "KAFKA_LISTENERS"
+          value: "PLAINTEXT://0.0.0.0:{{ .Values.service.broker3.local }},PLAINTEXT_HOST://0.0.0.0:{{ .Values.service.broker3.port }}"
+        - name: "KAFKA_ADVERTISED_LISTENERS"
+          value: "PLAINTEXT://broker-3:{{ .Values.service.broker3.local }},PLAINTEXT_HOST://broker-3:{{ .Values.service.broker3.port }}"
+        - name: "KAFKA_BROKER_ID"
+          value: "1"
+        - name: "KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR"
+          value: "1"
+        - name: "KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS"
+          value: "0"
+        - name: "KAFKA_METRIC_REPORTERS"
+          value: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
+        - name: "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR"
+          value: "1"
+        - name: "KAFKA_ZOOKEEPER_CONNECT"
+          value: "zookeeper:{{ .Values.service.zooKeeper.port }}"
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.broker.requests.memory | quote }}
+            cpu: {{ .Values.resources.broker.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.broker.limits.memory | quote }}
+            cpu: {{ .Values.resources.broker.limits.cpu | quote }}
+        {{- end }}
