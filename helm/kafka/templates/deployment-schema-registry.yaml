@@ -1,0 +1,40 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "schema-registry"
+  labels:
+    app: "schema-registry"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "schema-registry"
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: "schema-registry"
+    spec:
+      containers:
+      - name: "schema-registry"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.schemaRegistry.repository }}:{{ .Values.image.schemaRegistry.tag}}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        env:
+        - name: "SCHEMA_REGISTRY_HOST_NAME"
+          value: "schema-registry"
+        - name: "SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL"
+          value: "zookeeper:2181"
+        - name: "SCHEMA_REGISTRY_LISTENERS"
+          value: "http://schema-registry:8081"
+        ports:
+        - containerPort: 8081
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.schemaRegistry.requests.memory | quote }}
+            cpu: {{ .Values.resources.schemaRegistry.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.schemaRegistry.limits.memory | quote }}
+            cpu: {{ .Values.resources.schemaRegistry.limits.cpu | quote }}
+        {{- end }}
