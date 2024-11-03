@@ -8,7 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.port }}
     targetPort: {{ .Values.service.port }}
+    {{- if .Values.service.type | eq "NodePort" }}
     nodePort: {{ .Values.service.nodePort }}
+    {{- end }}
     protocol: "TCP"
     name: {{ .Values.service.name | quote }}
   selector:

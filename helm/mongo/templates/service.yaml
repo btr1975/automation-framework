@@ -8,7 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.port }}            # Port apps in cluster use
     targetPort: {{ .Values.service.port }}      # Port to connect to container
+    {{- if .Values.service.type | eq "NodePort" }}
     nodePort: {{ .Values.service.nodePort }}    # Port to expose on the nodes
+    {{- end }}
     protocol: "TCP"
   selector:
     app: "mongo"
