@@ -26,11 +26,11 @@ spec:
         - name: "KAFKA_REST_HOST_NAME"
           value: "rest-proxy"
         - name: "KAFKA_REST_LISTENERS"
-          value: "http://0.0.0.0:8082"
+          value: "http://0.0.0.0:{{ .Values.service.restProxy.port }}"
         - name: "KAFKA_REST_SCHEMA_REGISTRY_URL"
-          value: "http://schema-registry:8081"
+          value: "http://schema-registry:{{ .Values.service.schemaRegistry.port }}"
         ports:
-        - containerPort: 8082
+        - containerPort: {{ .Values.service.restProxy.port }}
         {{- if .Values.resources }}
         resources:
           requests:

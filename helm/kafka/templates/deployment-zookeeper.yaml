@@ -21,12 +21,12 @@ spec:
         image: "{{ .Values.image.registry }}/{{ .Values.image.zooKeeper.repository }}:{{ .Values.image.zooKeeper.tag}}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
-        - containerPort: 2181
+        - containerPort: {{ .Values.service.zooKeeper.port }}
         env:
         - name: "ZOOKEEPER_HOST_NAME"
           value: "zookeeper"
         - name: "ZOOKEEPER_CLIENT_PORT"
-          value: "2181"
+          value: "{{ .Values.service.zooKeeper.port }}"
         - name: "ZOOKEEPER_TICK_TIME"
           value: "2000"
         - name: "ZOOKEEPER_SERVER_ID"

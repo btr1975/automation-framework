@@ -1,0 +1,13 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "rest-proxy"
+spec:
+  type: {{ .Values.service.restProxy.type }}
+  ports:
+  - port: {{ .Values.service.restProxy.port }}
+    targetPort: {{ .Values.service.restProxy.port }}
+    name: "rest-proxy"
+  selector:
+    app: "rest-proxy"

@@ -1,0 +1,13 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "control-center"
+spec:
+  type: {{ .Values.service.controlCenter.type }}
+  ports:
+  - port: {{ .Values.service.controlCenter.port }}
+    targetPort: {{ .Values.service.controlCenter.port }}
+    name: "control-center"
+  selector:
+    app: "control-center"

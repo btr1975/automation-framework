@@ -1,0 +1,13 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "schema-registry"
+spec:
+  type: {{ .Values.service.schemaRegistry.type }}
+  ports:
+  - port: {{ .Values.service.schemaRegistry.port }}
+    targetPort: {{ .Values.service.schemaRegistry.port }}
+    name: "schema-registry"
+  selector:
+    app: "schema-registry"

@@ -21,7 +21,7 @@ spec:
         image: "{{ .Values.image.registry }}/{{ .Values.image.controlCenter.repository }}:{{ .Values.image.controlCenter.tag}}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
-        - containerPort: 9021
+        - containerPort: {{ .Values.service.controlCenter.port }}
         {{- if .Values.resources }}
         resources:
           requests:
@@ -43,8 +43,8 @@ spec:
         - name: "CONTROL_CENTER_REPLICATION_FACTOR"
           value: "1"
         - name: "CONTROL_CENTER_SCHEMA_REGISTRY_URL"
-          value: "http://schema-registry:8081"
+          value: "http://schema-registry:{{ .Values.service.schemaRegistry.port }}"
         - name: "CONTROL_CENTER_ZOOKEEPER_CONNECT"
-          value: "zookeeper:2181"
+          value: "zookeeper:{{ .Values.service.zooKeeper.port }}"
         - name: "PORT"
-          value: "9021"
+          value: "{{ .Values.service.controlCenter.port }}"

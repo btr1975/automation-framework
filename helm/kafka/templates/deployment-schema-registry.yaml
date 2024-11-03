@@ -24,11 +24,11 @@ spec:
         - name: "SCHEMA_REGISTRY_HOST_NAME"
           value: "schema-registry"
         - name: "SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL"
-          value: "zookeeper:2181"
+          value: "zookeeper:{{ .Values.service.zooKeeper.port }}"
         - name: "SCHEMA_REGISTRY_LISTENERS"
-          value: "http://schema-registry:8081"
+          value: "http://schema-registry:{{ .Values.service.schemaRegistry.port }}"
         ports:
-        - containerPort: 8081
+        - containerPort: {{ .Values.service.schemaRegistry.port }}
         {{- if .Values.resources }}
         resources:
           requests:
