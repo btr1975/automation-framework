@@ -8,6 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.schemaRegistry.port }}
     targetPort: {{ .Values.service.schemaRegistry.port }}
+    {{- if .Values.service.schemaRegistry.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.schemaRegistry.nodePort }}
+    {{- end }}
     name: "schema-registry"
   selector:
     app: "schema-registry"

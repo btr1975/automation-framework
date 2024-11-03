@@ -8,6 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.zooKeeper.port }}
     targetPort: {{ .Values.service.zooKeeper.port }}
+    {{- if .Values.service.zooKeeper.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.zooKeeper.nodePort }}
+    {{- end }}
     name: "zookeeper"
   selector:
     app: 'zookeeper'

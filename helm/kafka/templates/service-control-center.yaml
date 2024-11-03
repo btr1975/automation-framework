@@ -8,6 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.controlCenter.port }}
     targetPort: {{ .Values.service.controlCenter.port }}
+    {{- if .Values.service.controlCenter.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.controlCenter.nodePort }}
+    {{- end }}
     name: "control-center"
   selector:
     app: "control-center"

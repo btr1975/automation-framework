@@ -29,28 +29,35 @@ image:
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
   controlCenter:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 9021
+    nodePort: 30001
   restProxy:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 8082
+    nodePort: 30002
   schemaRegistry:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 8081
+    nodePort: 30003
   zooKeeper:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 2181
+    nodePort: 30004
   broker1:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 9092
+    nodePort: 30005
     local: 29092
   broker2:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 9093
+    nodePort: 30006
     local: 29093
   broker3:
-    type: "LoadBalancer"
+    type: "NodePort"
     port: 9094
+    nodePort: 30007
     local: 29094
 
 resources:

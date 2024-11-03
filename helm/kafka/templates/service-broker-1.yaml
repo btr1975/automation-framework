@@ -8,6 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.broker1.port }}
     targetPort: {{ .Values.service.broker1.port }}
+    {{- if .Values.service.broker1.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.broker1.nodePort }}
+    {{- end }}
     name: "broker-1"
   - port: {{ .Values.service.broker1.local }}
     targetPort: {{ .Values.service.broker1.local }}

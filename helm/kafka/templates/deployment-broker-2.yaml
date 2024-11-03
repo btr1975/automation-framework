@@ -44,7 +44,7 @@ spec:
         - name: "KAFKA_ADVERTISED_LISTENERS"
           value: "PLAINTEXT://broker-2:{{ .Values.service.broker2.local }},PLAINTEXT_HOST://broker-2:{{ .Values.service.broker2.port }}"
         - name: "KAFKA_BROKER_ID"
-          value: "1"
+          value: "2"
         - name: "KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR"
           value: "1"
         - name: "KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS"

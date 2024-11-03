@@ -8,6 +8,9 @@ spec:
   ports:
   - port: {{ .Values.service.restProxy.port }}
     targetPort: {{ .Values.service.restProxy.port }}
+    {{- if .Values.service.restProxy.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.restProxy.nodePort }}
+    {{- end }}
     name: "rest-proxy"
   selector:
     app: "rest-proxy"

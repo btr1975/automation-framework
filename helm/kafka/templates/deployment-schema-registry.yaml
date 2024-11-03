@@ -16,6 +16,7 @@ spec:
       labels:
         app: "schema-registry"
     spec:
+      enableServiceLinks: false  # reference https://kubernetes.io/docs/tutorials/services/connect-applications-service/#accessing-the-service
       containers:
       - name: "schema-registry"
         image: "{{ .Values.image.registry }}/{{ .Values.image.schemaRegistry.repository }}:{{ .Values.image.schemaRegistry.tag}}"
@@ -26,7 +27,9 @@ spec:
         - name: "SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL"
           value: "zookeeper:{{ .Values.service.zooKeeper.port }}"
         - name: "SCHEMA_REGISTRY_LISTENERS"
-          value: "http://schema-registry:{{ .Values.service.schemaRegistry.port }}"
+          value: "http://0.0.0.0:{{ .Values.service.schemaRegistry.port }}"
+        - name: "SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS"
+          value: "broker-1:9092,broker-2:9093,broker-3:9094"
         ports:
         - containerPort: {{ .Values.service.schemaRegistry.port }}
         {{- if .Values.resources }}
