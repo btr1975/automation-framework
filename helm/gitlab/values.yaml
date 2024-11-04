@@ -50,22 +50,7 @@ resources: {}
   #   memory: "2Gi"
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "gitlab-etc"
-    persistentVolumeClaim:
-      claimName: "gitlab-etc-claim"
-  - name: "gitlab-var-opt"
-    persistentVolumeClaim:
-      claimName: "gitlab-var-opt-claim"
-  - name: "gitlab-var-log"
-    persistentVolumeClaim:
-      claimName: "gitlab-var-log-claim"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "gitlab-etc"
-    mountPath: "/etc/gitlab"
-  - name: "gitlab-var-opt"
-    mountPath: "/var/opt/gitlab"
-  - name: "gitlab-var-log"
-    mountPath: "/var/log/gitlab"
+volumeMounts: []

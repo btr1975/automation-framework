@@ -18,4 +18,4 @@ spec:
     {{- end }}
     protocol: "TCP"
   selector:
-    app: "mongo"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"

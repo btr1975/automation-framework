@@ -2,7 +2,7 @@
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  name: "teamcity-logs-claim"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs-claim"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}

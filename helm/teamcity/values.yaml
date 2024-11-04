@@ -42,17 +42,7 @@ resources: {}
   #   memory: "2Gi"
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "teamcity-datadir"
-    persistentVolumeClaim:
-      claimName: "teamcity-datadir-claim"
-  - name: "teamcity-logs"
-    persistentVolumeClaim:
-      claimName: "teamcity-logs-claim"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "teamcity-datadir"
-    mountPath: "/data/teamcity_server/datadir"
-  - name: "teamcity-logs"
-    mountPath: "/opt/teamcity/logs"
+volumeMounts: []

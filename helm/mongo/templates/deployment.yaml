@@ -2,27 +2,27 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "mongo"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}
   namespace: {{ .Values.namespace | quote }}
   {{- end }}
   labels:
-    app: "mongo"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "mongo"
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
       labels:
-        app: "mongo"
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: "mongo"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
@@ -39,6 +39,14 @@ spec:
             cpu: {{ .Values.resources.limits.cpu | quote }}
         {{- end}}
         volumeMounts:
-        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-db"
+          mountPath: "/data/db"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-configdb"
+          mountPath: "/data/configdb"
       volumes:
-      {{- toYaml .Values.volumes | nindent 6 }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-db"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-db-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-configdb"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-configdb-claim"

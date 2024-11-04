@@ -28,7 +28,7 @@ service:
   type: "NodePort"
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 8200
-  nodePort: 31124
+  nodePort: 31127
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -43,17 +43,7 @@ resources: {}
   #   memory: "64Mi"
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "vault-logs"
-    persistentVolumeClaim:
-      claimName: "vault-logs-claim"
-  - name: "vault-file"
-    persistentVolumeClaim:
-      claimName: "vault-file-claim"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "vault-logs"
-    mountPath: "/vault/logs"
-  - name: "vault-file"
-    mountPath: "/vault/file"
+volumeMounts: []

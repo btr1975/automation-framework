@@ -2,7 +2,7 @@
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  name: "nautobot-lab-postgresql-claim"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}-postgresql-claim"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}

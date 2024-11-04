@@ -37,20 +37,10 @@ resources: {}
   #   memory: "4Gi"
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "nautobot-lab-redis"
-    persistentVolumeClaim:
-      claimName: "nautobot-lab-redis-claim"
-  - name: "nautobot-lab-postgresql"
-    persistentVolumeClaim:
-      claimName: "nautobot-lab-postgresql-claim"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "nautobot-lab-redis"
-    mountPath: "/var/lib/redis"
-  - name: "nautobot-lab-postgresql"
-    mountPath: "/var/lib/postgresql/12/main"
+volumeMounts: []
 
 nodeSelector: {}
 

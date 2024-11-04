@@ -2,30 +2,30 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "teamcity"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}
   namespace: {{ .Values.namespace | quote }}
   {{- end }}
   labels:
-    app: "teamcity"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "teamcity"
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
       labels:
-        app: "teamcity"
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
       terminationGracePeriodSeconds: 1
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
         runAsGroup: {{ .Values.securityContext.runAsGroup }}
       containers:
-      - name: "teamcity"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
@@ -40,6 +40,14 @@ spec:
             cpu: {{ .Values.resources.limits.cpu | quote }}
         {{- end}}
         volumeMounts:
-        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-datadir"
+          mountPath: "/data/teamcity_server/datadir"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+          mountPath: "/opt/teamcity/logs"
       volumes:
-      {{- toYaml .Values.volumes | nindent 6 }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-datadir"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-datadir-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-logs-claim"

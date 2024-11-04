@@ -2,27 +2,27 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "gitlab"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}
   namespace: {{ .Values.namespace | quote }}
   {{- end }}
   labels:
-    app: "gitlab"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "gitlab"
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
       labels:
-        app: "gitlab"
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: "gitlab"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote}}
         ports:
@@ -30,7 +30,12 @@ spec:
         - containerPort: {{ .Values.service.https.port }}
         - containerPort: {{ .Values.service.http.port }}
         volumeMounts:
-        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-etc"
+          mountPath: "/etc/gitlab"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-var-opt"
+          mountPath: "/var/opt/gitlab"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-var-log"
+          mountPath: "/var/log/gitlab"
         {{- if .Values.resources }}
         resources:
           requests:
@@ -41,4 +46,12 @@ spec:
             cpu: {{ .Values.resources.limits.cpu | quote }}
         {{- end}}
       volumes:
-      {{- toYaml .Values.volumes | nindent 6 }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-etc"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-etc-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-var-opt"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-var-opt-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-gitlab-var-log"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-var-log-claim"

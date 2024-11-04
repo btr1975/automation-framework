@@ -2,27 +2,27 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "vault"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}
   namespace: {{ .Values.namespace | quote }}
   {{- end }}
   labels:
-    app: "vault"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "vault"
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
       labels:
-        app: "vault"
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: "vault"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:
@@ -31,7 +31,10 @@ spec:
         - name: VAULT_LOCAL_CONFIG
           value: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
         volumeMounts:
-        {{- toYaml .Values.volumeMounts | nindent 8 }}
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+          mountPath: "/vault/logs"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-file"
+          mountPath: "/vault/file"
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
         {{- if .Values.resources }}
@@ -44,4 +47,9 @@ spec:
             cpu: {{ .Values.resources.limits.cpu | quote }}
         {{- end}}
       volumes:
-      {{- toYaml .Values.volumes | nindent 6 }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-logs-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-file"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-file-claim"

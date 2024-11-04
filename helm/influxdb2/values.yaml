@@ -37,17 +37,7 @@ resources: {}
   #   memory: "256Mi"
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "influxdb2-var-lib"
-    persistentVolumeClaim:
-      claimName: "influxdb2-var-lib-claim"
-  - name: "influxdb2-etc"
-    persistentVolumeClaim:
-      claimName: "influxdb2-etc-claim"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "influxdb2-var-lib"
-    mountPath: "/var/lib/influxdb2"
-  - name: "influxdb2-etc"
-    mountPath: "/etc/influxdb2"
+volumeMounts: []

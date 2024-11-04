@@ -2,27 +2,27 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "grafana-deploy"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.namespace | ne "default" }}
   namespace: {{ .Values.namespace | quote }}
   {{- end }}
   labels:
-    app: "grafana"
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "grafana"
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
       labels:
-        app: "grafana"
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
       terminationGracePeriodSeconds: 1
       containers:
-      - name: "grafana"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         ports:

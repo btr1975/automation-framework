@@ -41,17 +41,7 @@ resources: {}
   #   memory: 64Mi
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "mongo-db"
-    mountPath: "/data/db"
-  - name: "mongo-configdb"
-    mountPath: "/data/configdb"
+volumeMounts: []
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: "mongo-db"
-    persistentVolumeClaim:
-      claimName: "mongo-db-claim"
-  - name: "mongo-configdb"
-    persistentVolumeClaim:
-      claimName: "mongo-configdb-claim"
+volumes: []
