@@ -3,8 +3,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-namespace: "default"
-
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
@@ -23,11 +21,9 @@ securityContext:
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-  type: "NodePort"
+  type: "ClusterIP"
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 8111
-  nodePort: 30000
-  name: "teamcity-gui"
+  port: 9090
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

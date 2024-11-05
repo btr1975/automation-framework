@@ -2,7 +2,7 @@
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  name: "{{ .Release.Name }}-{{ .Chart.Name }}-datadir-claim"
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}-config-dir-claim"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
   {{- else if .Values.global.namespace | ne "default" }}

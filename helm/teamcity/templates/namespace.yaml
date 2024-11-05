@@ -1,7 +1,7 @@
 ---
-{{- if .Values.namespace | ne "default" }}
+{{- if .Values.global.namespace | ne "default" }}
 apiVersion: "v1"
 kind: "Namespace"
 metadata:
-    name: {{ .Values.namespace | quote }}
+    name: {{ .Values.global.namespace | quote }}
 {{- end}}

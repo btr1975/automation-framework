@@ -1,68 +1,51 @@
-apiVersion: apps/v1
-kind: Deployment
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-  name: {{ include "teamcity-agent.fullname" . }}
-  labels:
-    {{- include "teamcity-agent.labels" . | nindent 4 }}
-spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
+  {{- if .Release.Namespace | ne "default" }}
+  namespace: {{ .Release.Namespace | quote }}
+  {{- else if .Values.global.namespace | ne "default" }}
+  namespace: {{ .Values.global.namespace | quote }}
   {{- end }}
+  labels:
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "teamcity-agent.selectorLabels" . | nindent 6 }}
+      app: "{{ .Release.Name }}-{{ .Chart.Name }}"
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "teamcity-agent.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        app: "{{ .Release.Name }}-{{ .Chart.Name }}"
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "teamcity-agent.serviceAccountName" . }}
+      terminationGracePeriodSeconds: 1
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+        - name: "SERVER_URL"
+          value: "http://{{ .Release.Name }}-teamcity-server-service:8111"
+        {{- if .Values.resources }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+        {{- end}}
+        volumeMounts:
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-config-dir"
+          mountPath: "/data/teamcity_agent/conf"
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-config-dir"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-config-dir-claim"

@@ -5,8 +5,8 @@ metadata:
   name: "{{ .Release.Name }}-{{ .Chart.Name }}"
   {{- if .Release.Namespace | ne "default" }}
   namespace: {{ .Release.Namespace | quote }}
-  {{- else if .Values.namespace | ne "default" }}
-  namespace: {{ .Values.namespace | quote }}
+  {{- else if .Values.global.namespace | ne "default" }}
+  namespace: {{ .Values.global.namespace | quote }}
   {{- end }}
   labels:
     app: "{{ .Release.Name }}-{{ .Chart.Name }}"

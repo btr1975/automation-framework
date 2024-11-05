@@ -1,15 +1,18 @@
-apiVersion: v1
-kind: Service
+---
+apiVersion: "v1"
+kind: "Service"
 metadata:
-  name: {{ include "teamcity-agent.fullname" . }}
-  labels:
-    {{- include "teamcity-agent.labels" . | nindent 4 }}
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}-service"
+  {{- if .Release.Namespace | ne "default" }}
+  namespace: {{ .Release.Namespace | quote }}
+  {{- else if .Values.global.namespace | ne "default" }}
+  namespace: {{ .Values.global.namespace | quote }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.port }}
+    protocol: "TCP"
   selector:
-    {{- include "teamcity-agent.selectorLabels" . | nindent 4 }}
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"
