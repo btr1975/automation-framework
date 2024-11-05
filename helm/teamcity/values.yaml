@@ -3,46 +3,4 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-namespace: "default"
-
-# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
-replicaCount: 1
-
-# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
-image:
-  repository: "docker.io/jetbrains/teamcity-server"
-  # This sets the pull policy for images.
-  pullPolicy: "Always"
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "2024.07.3"
-
-securityContext:
-  runAsUser: 0
-  runAsGroup: 0
-
-# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
-service:
-  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-  type: "NodePort"
-  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 8111
-  nodePort: 30000
-  name: "teamcity-gui"
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: "1"
-  #   memory: "4Gi"
-  # requests:
-  #   cpu: "500m"
-  #   memory: "2Gi"
-
-# Additional volumes on the output Deployment definition.
-volumes: []
-
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+namespace: "moop"
