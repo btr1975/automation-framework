@@ -1,0 +1,4 @@
+---
+volumes:
+  influxdb2-var-lib-{{ release.name }}:
+  influxdb2-etc-{{ release.name }}:

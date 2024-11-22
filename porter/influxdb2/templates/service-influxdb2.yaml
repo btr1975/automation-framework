@@ -1,0 +1,13 @@
+---
+services:
+  influxdb:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "influxdb2-{{ release.name }}"
+    container_name: "influxdb2-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    volumes:
+    - "influxdb2-var-lib-{{ release.name }}:/var/lib/influxdb2"
+    - "influxdb2-etc-{{ release.name }}:/etc/influxdb2"
