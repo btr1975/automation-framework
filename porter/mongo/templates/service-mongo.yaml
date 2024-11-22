@@ -1,0 +1,17 @@
+---
+services:
+  mongo:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "mongo-{{ release.name }}"
+    container_name: "mongo-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    environment:
+    {% for env in values.environment_variables %}
+      {{ env.name }}: "{{ env.value }}"
+    {% endfor %}
+    volumes:
+      - "mongo-data-db-{{ release.name }}:/data/db"
+      - "mongo-data-configdb-{{ release.name }}:/data/configdb"

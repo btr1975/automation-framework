@@ -1,0 +1,4 @@
+---
+volumes:
+  mongo-data-db-{{ release.name }}:
+  mongo-data-configdb-{{ release.name }}:
