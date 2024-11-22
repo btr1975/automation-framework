@@ -1,0 +1,3 @@
+---
+volumes:
+  teamcity-agent-conf-{{ release.name }}:

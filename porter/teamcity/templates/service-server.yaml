@@ -1,0 +1,12 @@
+---
+services:
+  teamcity-server:
+    image: "{{ values.image.server.repository }}:{{ values.image.server.tag }}"
+    container_name: "teamcity-server-{{ release.name }}"
+    ports:
+    {% for service in values.service.server %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    volumes:
+    - "teamcity-server-datadir-{{ release.name }}:/data/teamcity_server/datadir"
+    - "teamcity-server-logs-{{ release.name }}:/opt/teamcity/logs"

@@ -1,0 +1,4 @@
+---
+volumes:
+  teamcity-server-datadir-{{ release.name }}:
+  teamcity-server-logs-{{ release.name }}:

@@ -1,0 +1,18 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  server:
+    repository: "docker.io/jetbrains/teamcity-server"
+    tag: "2024.07.3"
+  agent:
+    repository: "docker.io/jetbrains/teamcity-agent"
+    tag: "2024.07.3"
+
+service:
+  server:
+    - node_port: 8111
+      container_port: 8111
+      name: "jupyter-notebook"

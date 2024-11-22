@@ -1,0 +1,9 @@
+---
+services:
+  teamcity-agent:
+    image: "{{ values.image.agent.repository }}:{{ values.image.agent.tag }}"
+    container_name: "teamcity-agent-{{ release.name }}"
+    environment:
+      SERVER_URL: "http://teamcity-server-{{ release.name }}:8111"
+    volumes:
+    - "teamcity-agent-conf-{{ release.name }}:/data/teamcity_agent/conf"
