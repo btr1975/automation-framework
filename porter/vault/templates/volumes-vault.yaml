@@ -1,0 +1,4 @@
+---
+volumes:
+  vault-logs-{{ release.name }}:
+  vault-file-{{ release.name }}:

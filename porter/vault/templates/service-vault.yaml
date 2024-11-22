@@ -1,0 +1,19 @@
+---
+services:
+  vault:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "vault-{{ release.name }}"
+    container_name: "vault-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    cap_add:
+      - "IPC_LOCK"
+    environment:
+    {% for env in values.environment_variables %}
+      {{ env.name }}: "{{ env.value }}"
+    {% endfor %}
+    volumes:
+      - "vault-logs-{{ release.name }}:/vault/logs"
+      - "vault-file-{{ release.name }}:/vault/file"

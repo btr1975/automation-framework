@@ -1,0 +1,17 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/library/vault"
+  tag: "1.13.3"
+
+service:
+  - node_port: 8200
+    container_port: 8200
+    name: "vault"
+
+environment_variables:
+  - name: "VAULT_DEV_ROOT_TOKEN_ID"
+    value: "example"
