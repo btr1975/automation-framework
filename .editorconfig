@@ -13,12 +13,12 @@ insert_final_newline = true
 charset = utf-8
 
 # Set indent style for Python, JSON, and YAML
-[*.{py,json,yml,yaml}]
+[*.{py,json}]
 indent_style = space
 indent_size = 4
 
 # Set indent style for XML
-[*.xml]
+[*.{xml,yml,yaml}]
 indent_style = space
 indent_size = 2
 
