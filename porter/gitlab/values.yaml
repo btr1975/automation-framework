@@ -1,0 +1,19 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/gitlab/gitlab-ce"
+  tag: "17.3.6-ce.0"
+
+service:
+  - node_port: 2022
+    container_port: 22
+    name: "ssh"
+  - node_port: 8080
+    container_port: 80
+    name: "http"
+  - node_port: 8443
+    container_port: 443
+    name: "https"

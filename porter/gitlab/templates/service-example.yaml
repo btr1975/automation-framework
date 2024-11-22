@@ -1,0 +1,13 @@
+---
+services:
+  gitlab:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    container_name: "gitlab-{{ release.name }}"
+    ports:
+      {% for port in values.service %}
+      - "{{ port.node_port }}:{{ port.container_port }}"
+      {% endfor %}
+    volumes:
+      - "gitlab-etc-{{ release.name }}:/etc/gitlab"
+      - "gitlab-logs-{{ release.name }}:/var/log/gitlab"
+      - "gitlab-opt-{{ release.name }}:/var/opt/gitlab"

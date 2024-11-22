@@ -1,0 +1,5 @@
+---
+volumes:
+  gitlab-etc-{{ release.name }}:
+  gitlab-logs-{{ release.name }}:
+  gitlab-opt-{{ release.name }}:
