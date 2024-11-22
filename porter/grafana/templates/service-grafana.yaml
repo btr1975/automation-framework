@@ -1,0 +1,10 @@
+---
+services:
+  grafana:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "grafana-{{ release.name }}"
+    container_name: "grafana-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
