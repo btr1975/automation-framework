@@ -1,0 +1,10 @@
+---
+services:
+  elk:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "elk-{{ release.name }}"
+    container_name: "elk-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
