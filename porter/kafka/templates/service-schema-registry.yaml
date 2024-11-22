@@ -1,0 +1,18 @@
+---
+services:
+  schema-registry-{{ release.name }}:
+    image: "{{ values.image.registry }}/{{ values.image.schema_registry.repository }}:{{ values.image.schema_registry.tag }}"
+    hostname: "schema-registry-{{ release.name }}"
+    container_name: "schema-registry-{{ release.name }}"
+    depends_on:
+      - "zookeeper-{{ release.name }}"
+      - "broker-1-{{ release.name }}"
+      - "broker-2-{{ release.name }}"
+      - "broker-3-{{ release.name }}"
+    ports:
+      - "{{ values.service.schema_registry.node_port }}:{{ values.service.schema_registry.container_port }}"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: "schema-registry-{{ release.name }}"
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper-{{ release.name }}:{{ values.service.zookeeper.container_port }}"
+      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:{{ values.service.schema_registry.container_port }}"
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker-1-{{ release.name }}:{{ values.service.broker_1.container_port }},broker-2-{{ release.name }}:{{ values.service.broker_2.container_port }},broker-3-{{ release.name }}:{{ values.service.broker_3.container_port }}"

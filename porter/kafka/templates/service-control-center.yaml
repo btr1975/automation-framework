@@ -1,0 +1,23 @@
+---
+services:
+  control-center-{{ release.name }}:
+    image: "{{ values.image.registry }}/{{ values.image.control_center.repository }}:{{ values.image.control_center.tag }}"
+    hostname: "control-center-{{ release.name }}"
+    container_name: "control-center-{{ release.name }}"
+    ports:
+      - "{{ values.service.control_center.node_port }}:{{ values.service.control_center.container_port }}"
+    depends_on:
+      - "zookeeper-{{ release.name }}"
+      - "broker-1-{{ release.name }}"
+      - "broker-2-{{ release.name }}"
+      - "broker-3-{{ release.name }}"
+      - "schema-registry-{{ release.name }}"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker-1-{{ release.name }}:{{ values.service.broker_1.container_port }},broker-2-{{ release.name }}:{{ values.service.broker_2.container_port }},broker-3-{{ release.name }}:{{ values.service.broker_3.container_port }}'
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper-{{ release.name }}:{{ values.service.zookeeper.container_port }}'
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry-{{ release.name }}:{{ values.service.schema_registry.container_port }}"
+      CONTROL_CENTER_REPLICATION_FACTOR: "1"
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: "1"
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: "1"
+      CONFLUENT_METRICS_TOPIC_REPLICATION: "1"
+      PORT: "{{ values.service.control_center.container_port }}"

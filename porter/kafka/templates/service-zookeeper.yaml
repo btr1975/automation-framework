@@ -1,0 +1,13 @@
+---
+services:
+  zookeeper-{{ release.name }}:
+    image: "{{ values.image.registry }}/{{ values.image.zookeeper.repository }}:{{ values.image.zookeeper.tag }}"
+    hostname: "zookeeper-{{ release.name }}"
+    container_name: "zookeeper-{{ release.name }}"
+    ports:
+      - "{{ values.service.zookeeper.node_port }}:{{ values.service.zookeeper.container_port }}"
+    environment:
+      ZOOKEEPER_HOST_NAME: "zookeeper-{{ release.name }}"
+      ZOOKEEPER_CLIENT_PORT: "{{ values.service.zookeeper.container_port }}"
+      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_SERVER_ID: "1"

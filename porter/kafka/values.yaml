@@ -1,0 +1,45 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  registry: "docker.io"
+  broker:
+    repository: "confluentinc/cp-server"
+    tag: "7.7.1"
+  control_center:
+    repository: "confluentinc/cp-enterprise-control-center"
+    tag: "7.7.1"
+  rest_proxy:
+    repository: "confluentinc/cp-kafka-rest"
+    tag: "7.7.1"
+  schema_registry:
+    repository: "confluentinc/cp-schema-registry"
+    tag: "7.7.1"
+  zookeeper:
+    repository: "confluentinc/cp-zookeeper"
+    tag: "7.7.1"
+
+service:
+  broker_1:
+    node_port: 9092
+    container_port: 9092
+  broker_2:
+    node_port: 9093
+    container_port: 9093
+  broker_3:
+    node_port: 9094
+    container_port: 9094
+  control_center:
+    node_port: 9021
+    container_port: 9021
+  rest_proxy:
+    node_port: 8082
+    container_port: 8082
+  schema_registry:
+    node_port: 8081
+    container_port: 8081
+  zookeeper:
+    node_port: 2181
+    container_port: 2181

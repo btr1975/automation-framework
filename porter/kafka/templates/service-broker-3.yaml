@@ -1,0 +1,26 @@
+---
+services:
+  broker-3-{{ release.name }}:
+    image: "{{ values.image.registry }}/{{ values.image.broker.repository }}:{{ values.image.broker.tag }}"
+    hostname: "broker-3-{{ release.name }}"
+    container_name: "broker-3-{{ release.name }}"
+    depends_on:
+      - "zookeeper-{{ release.name }}"
+    ports:
+      - "{{ values.service.broker_3.node_port }}:{{ values.service.broker_3.container_port }}"
+    environment:
+      KAFKA_BROKER_ID: "3"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper-{{ release.name }}:{{ values.service.zookeeper.container_port }}"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-3-{{ release.name }}:2{{ values.service.broker_3.container_port }},PLAINTEXT_HOST://:{{ values.service.broker_3.container_port }}"
+      KAFKA_LISTENERS: "PLAINTEXT://broker-3-{{ release.name }}:2{{ values.service.broker_3.container_port }},PLAINTEXT_HOST://:{{ values.service.broker_3.container_port }}"
+      KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: "1"
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "broker-3-{{ release.name }}:2{{ values.service.broker_3.container_port }}"
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: "zookeeper-{{ release.name }}:{{ values.service.zookeeper.container_port }}"
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: "1"
+      CONFLUENT_METRICS_ENABLE: "true"
+      CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
+      CONFLUENT_SCHEMA_REGISTRY_URL: "http://schema-registry-{{ release.name }}:{{ values.service.schema_registry.container_port }}"
