@@ -1,0 +1,13 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/networktocode/nautobot-lab"
+  tag: "2.1.4"
+
+service:
+  - node_port: 8000
+    container_port: 8000
+    name: "nautobot"

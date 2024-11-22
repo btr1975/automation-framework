@@ -1,0 +1,13 @@
+---
+services:
+  nautobot:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "nautobot-{{ release.name }}"
+    container_name: "nautobot-{{ release.name }}"
+    ports:
+    {% for service in values.service %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    volumes:
+    - "nautobot-redis-{{ release.name }}:/var/lib/redis"
+    - "nautobot-postgres-{{ release.name }}:/var/lib/postgresql/12/main"

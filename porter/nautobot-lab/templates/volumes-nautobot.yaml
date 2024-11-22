@@ -1,0 +1,4 @@
+---
+volumes:
+  nautobot-redis-{{ release.name }}:
+  nautobot-postgres-{{ release.name }}:
