@@ -1,0 +1,18 @@
+---
+{% if values.options.mongo_express_enable %}
+services:
+  mongo-express-{{ release.name }}:
+    image: "{{ values.image.mongo_express.repository }}:{{ values.image.mongo_express.tag }}"
+    hostname: "mongo-express-{{ release.name }}"
+    container_name: "mongo-express-{{ release.name }}"
+    ports:
+    {% for service in values.service.mongo_express %}
+     - "{{ service.node_port }}:{{ service.container_port }}"
+    {% endfor %}
+    environment:
+      ME_CONFIG_MONGODB_SERVER: "mongo-{{ release.name }}"
+      ME_CONFIG_MONGODB_PORT: "{{ values.service.mongo[0].container_port }}"
+    {% for env in values.environment_variables.mongo_express %}
+      {{ env.name }}: "{{ env.value }}"
+    {% endfor %}
+  {% endif %}

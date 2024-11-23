@@ -4,16 +4,39 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: "docker.io/library/mongo"
-  tag: "8.0.3"
+  mongo:
+    repository: "docker.io/library/mongo"
+    tag: "8.0.3"
+  mongo_express:
+    repository: "docker.io/library/mongo-express"
+    tag: "1.0.2"
 
 service:
+  mongo:
   - node_port: 27017
     container_port: 27017
     name: "mongo-db"
+  mongo_express:
+  - node_port: 8181
+    container_port: 8081
+    name: "mongo-express"
+
 
 environment_variables:
+  mongo:
   - name: "MONGO_INITDB_ROOT_USERNAME"
     value: "root"
   - name: "MONGO_INITDB_ROOT_PASSWORD"
     value: "example"
+  mongo_express:
+  - name: "ME_CONFIG_MONGODB_ADMINUSERNAME"
+    value: "root"
+  - name: "ME_CONFIG_MONGODB_ADMINPASSWORD"
+    value: "example"
+  - name: "ME_CONFIG_BASICAUTH_USERNAME"
+    value: "root"
+  - name: "ME_CONFIG_BASICAUTH_PASSWORD"
+    value: "example"
+
+options:
+  mongo_express_enable: false
