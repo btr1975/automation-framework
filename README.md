@@ -16,6 +16,8 @@ Automation Framework
 2. You know the basics of [Podman Compose](https://docs.podman.io/en/latest/markdown/podman-compose.1.html).
 3. You know the basics of the [Compose Specification](https://compose-spec.io/).
 
+* ["Normal Compose and Swarm Files"](./docker/compose) 
+
 ## Assumptions if you are using Kubernetes single node or cluster
 1. You are using [microk8s](https://microk8s.io/).
 2. You have enabled [add-ons](https://microk8s.io/docs/addons) dns, metallb, 
@@ -23,11 +25,17 @@ Automation Framework
 3. You know the basics of [Kubernetes/k8s](https://kubernetes.io/).
 4. You know the basics of [Kubernetes YAML](https://kubernetes.io/docs/reference/).
 
+* ["Normal Kubernetes Manifests"](./k8s) 
+
 ## Assumptions if you are using HELM with Kubernetes single node or cluster
 1. You know the basics of [HELM](https://helm.sh/).
 
+* [HELM Packages](./helm) 
+
 ## Assumptions if you are using Pod-Porter with Podman or Docker
 1. You know the basics of [Pod-Porter](https://pod-porter.readthedocs.io/en/latest)
+
+* [Pod-Porter Packages](./porter) 
 
 ## General Information
 
