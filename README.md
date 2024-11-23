@@ -8,6 +8,13 @@ Automation Framework
 1. You know the basics of [Docker](https://www.docker.com/).
 2. You know the basics of [Docker Compose](https://docs.docker.com/compose/).
 3. You know the basics of [Docker Swarm](https://docs.docker.com/engine/swarm/).
+4. You know the basics of the [Compose Specification](https://compose-spec.io/).
+
+## Assumptions if you are using Podman
+
+1. You know the basics of [Podman](https://podman.io/).
+2. You know the basics of [Podman Compose](https://docs.podman.io/en/latest/markdown/podman-compose.1.html).
+3. You know the basics of the [Compose Specification](https://compose-spec.io/).
 
 ## Assumptions if you are using Kubernetes single node or cluster
 1. You are using [microk8s](https://microk8s.io/).
@@ -16,6 +23,11 @@ Automation Framework
 3. You know the basics of [Kubernetes/k8s](https://kubernetes.io/).
 4. You know the basics of [Kubernetes YAML](https://kubernetes.io/docs/reference/).
 
+## Assumptions if you are using HELM with Kubernetes single node or cluster
+1. You know the basics of [HELM](https://helm.sh/).
+
+## Assumptions if you are using Pod-Porter with Podman or Docker
+1. You know the basics of [Pod-Porter](https://pod-porter.readthedocs.io/en/latest)
 
 ## General Information
 
