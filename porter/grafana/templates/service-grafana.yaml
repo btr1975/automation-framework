@@ -1,6 +1,6 @@
 ---
 services:
-  grafana:
+  grafana-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "grafana-{{ release.name }}"
     container_name: "grafana-{{ release.name }}"

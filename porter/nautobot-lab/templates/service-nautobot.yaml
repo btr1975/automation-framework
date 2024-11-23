@@ -1,6 +1,6 @@
 ---
 services:
-  nautobot:
+  nautobot-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "nautobot-{{ release.name }}"
     container_name: "nautobot-{{ release.name }}"

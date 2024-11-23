@@ -1,6 +1,6 @@
 ---
 services:
-  teamcity-server:
+  teamcity-server-{{ release.name }}:
     image: "{{ values.image.server.repository }}:{{ values.image.server.tag }}"
     container_name: "teamcity-server-{{ release.name }}"
     ports:

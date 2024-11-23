@@ -1,6 +1,6 @@
 ---
 services:
-  influxdb:
+  influxdb2-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "influxdb2-{{ release.name }}"
     container_name: "influxdb2-{{ release.name }}"

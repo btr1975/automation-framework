@@ -1,6 +1,6 @@
 ---
 services:
-  mongo:
+  mongo-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "mongo-{{ release.name }}"
     container_name: "mongo-{{ release.name }}"

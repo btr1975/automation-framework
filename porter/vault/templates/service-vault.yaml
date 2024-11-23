@@ -1,6 +1,6 @@
 ---
 services:
-  vault:
+  vault-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "vault-{{ release.name }}"
     container_name: "vault-{{ release.name }}"

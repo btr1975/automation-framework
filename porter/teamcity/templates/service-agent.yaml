@@ -1,6 +1,8 @@
 ---
 services:
-  teamcity-agent:
+  teamcity-agent-{{ release.name }}:
+    depends_on:
+    - "teamcity-server-{{ release.name }}"
     image: "{{ values.image.agent.repository }}:{{ values.image.agent.tag }}"
     container_name: "teamcity-agent-{{ release.name }}"
     environment:

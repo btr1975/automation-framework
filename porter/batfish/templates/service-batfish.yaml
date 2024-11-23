@@ -1,6 +1,6 @@
 ---
 services:
-  batfish:
+  batfish-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "batfish-{{ release.name }}"
     container_name: "batfish-{{ release.name }}"

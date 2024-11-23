@@ -1,6 +1,6 @@
 ---
 services:
-  elk:
+  elk-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "elk-{{ release.name }}"
     container_name: "elk-{{ release.name }}"

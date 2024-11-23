@@ -1,6 +1,6 @@
 ---
 services:
-  gitlab:
+  gitlab-{{ release.name }}:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     container_name: "gitlab-{{ release.name }}"
     ports:
