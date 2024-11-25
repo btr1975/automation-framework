@@ -1,0 +1,14 @@
+---
+services:
+  rabbitmq-{{ release.name }}:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "rabbitmq-{{ release.name }}"
+    container_name: "rabbitmq-{{ release.name }}"
+    ports:
+      {% for port in values.service %}
+      - "{{ port.node_port }}:{{ port.container_port }}"
+      {% endfor %}
+    environment:
+    {% for env in values.environment_variables %}
+      {{ env.name }}: "{{ env.value }}"
+    {% endfor %}

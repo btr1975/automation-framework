@@ -1,0 +1,22 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/library/rabbitmq"
+  tag: "4.0.4-management"
+
+service:
+  - node_port: 5672
+    container_port: 5672
+    name: "rabbitmq"
+  - node_port: 15672
+    container_port: 15672
+    name: "rabbitmq-management"
+
+environment_variables:
+  - name: "RABBITMQ_DEFAULT_USER"
+    value: "root"
+  - name: "RABBITMQ_DEFAULT_PASS"
+    value: "example"
