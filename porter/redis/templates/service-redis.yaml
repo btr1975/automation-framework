@@ -1,0 +1,10 @@
+---
+services:
+  redis-{{ release.name }}:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    hostname: "redis-{{ release.name }}"
+    container_name: "redis-{{ release.name }}"
+    ports:
+      {% for port in values.service %}
+      - "{{ port.node_port }}:{{ port.container_port }}"
+      {% endfor %}
