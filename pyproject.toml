@@ -1,0 +1,29 @@
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+markers = [
+    "generic_tests: marks tests as generic_tests (deselect with -m not generic_tests)",
+]
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+command_line= "-m pytest -vvv"
+
+[tool.coverage.report]
+include = [
+    "hooks/*"
+]
+fail_under = 70
+
+[tool.pylint]
+max-line-length = 120
+# This allows pylint to complain on FIXME and XXX notes
+notes = [
+    "FIXME",
+    "XXX",
+]
+fail-under = 9.9
+
+[tool.black]
+line-length = 120
