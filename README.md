@@ -120,17 +120,22 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 * [vm.max_map_count](https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count)
 * [curl examples send data to ELK](https://mindmajix.com/elasticsearch/curl-syntax-with-examples)
 * [nautobot-lab reference](https://github.com/nautobot/nautobot-lab)
+* [Pod-Porter](https://pod-porter.readthedocs.io/en/latest)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
 * [Docker Swarm](https://docs.docker.com/engine/swarm/)
+* [Podman](https://podman.io/)
+* [Compose Specification](https://compose-spec.io/)
 * [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 * [Docker Registry Detail](https://docs.docker.com/registry/)
+* [Helm](https://helm.sh/)
 * [Kubernetes/k8s](https://kubernetes.io/)
 * [Kubernetes YAML](https://kubernetes.io/docs/reference/)
 * [microk8s](https://microk8s.io/)
 * [microk8s add-ons](https://microk8s.io/docs/addons)
 * [kompose](https://kompose.io/)
+
 
 ### What is Available Using Helm
 
@@ -172,46 +177,46 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 
 ### What is Available in Swarm
 
-| ARCHITECTURE | USED FOR |
-|---|---|
-| Kafka | As a message bus |
-| ELK Elastic Search | Logging search, various other stuff |
-| Hashicorp Vault | Secrets Storage |
-| Nautobot | "Source of truth" |
-| A Genie Parser | Something to parse show commands |
+| ARCHITECTURE         | USED FOR                              |
+|----------------------|---------------------------------------|
+| Kafka                | As a message bus                      |
+| ELK Elastic Search   | Logging search, various other stuff   |
+| Hashicorp Vault      | Secrets Storage                       |
+| Nautobot             | "Source of truth"                     |
+| A Genie Parser       | Something to parse show commands      |
 
 ![Automation Framework Swarm](diagrams/automation_framework_swarm.png)
 
 ### What is Available in Compose
 
-| ARCHITECTURE | USED FOR |
-|---|---|
-| Kafka | As a message bus |
-| ELK Elastic Search | Logging search, various other stuff |
-| Hashicorp Vault | Secrets Storage |
-| Nautobot | "Source of truth" |
-| A Genie Parser | Something to parse show commands |
-| MongoDB | Document dB |
-| Batfish | Modeling |
-| Influxdb | Series dB |
-| Grafana | Pretty Graphs |
-| Docker Registry | To hold docker images |
-| Docker Registry Browser | To Browse the Registry |
-| JetBrains TeamCity | CI/CD |
+| ARCHITECTURE            | USED FOR                              |
+|-------------------------|---------------------------------------|
+| Kafka                   | As a message bus                      |
+| ELK Elastic Search      | Logging search, various other stuff   |
+| Hashicorp Vault         | Secrets Storage                       |
+| Nautobot                | "Source of truth"                     |
+| A Genie Parser          | Something to parse show commands      |
+| MongoDB                 | Document dB                           |
+| Batfish                 | Modeling                              |
+| Influxdb                | Series dB                             |
+| Grafana                 | Pretty Graphs                         |
+| Docker Registry         | To hold docker images                 |
+| Docker Registry Browser | To Browse the Registry                |
+| JetBrains TeamCity      | CI/CD                                 |
 
 ![Automation Framework Compose](diagrams/automation_framework_compose.png)
 
 ### What is Available in Kubernetes
 
-| ARCHITECTURE | USED FOR |
-|---|---|
-| Kafka | As a message bus |
-| ELK Elastic Search | Logging search, various other stuff |
-| Hashicorp Vault | Secrets Storage |
-| MongoDB | Document dB |
-| Batfish | Modeling |
-| Influxdb | Series dB |
-| Grafana | Pretty Graphs |
-| JetBrains TeamCity | CI/CD |
+| ARCHITECTURE       | USED FOR                              |
+|--------------------|---------------------------------------|
+| Kafka              | As a message bus                      |
+| ELK Elastic Search | Logging search, various other stuff   |
+| Hashicorp Vault    | Secrets Storage                       |
+| MongoDB            | Document dB                           |
+| Batfish            | Modeling                              |
+| Influxdb           | Series dB                             |
+| Grafana            | Pretty Graphs                         |
+| JetBrains TeamCity | CI/CD                                 |
 
 ![Automation Framework Compose](diagrams/automation_framework_kubernetes.png)
