@@ -132,6 +132,44 @@ http://<ip or domain name>:5000/v2/<repo-name>/tags/list
 * [microk8s add-ons](https://microk8s.io/docs/addons)
 * [kompose](https://kompose.io/)
 
+### What is Available Using Helm
+
+[Helm Charts](./helm)
+
+| ARCHITECTURE       | USED FOR                                      |
+|--------------------|-----------------------------------------------|
+| Batfish            | Modeling                                      |
+| ELK Elastic Search | Logging search, various other stuff           |
+| GitLab             | Pipelines and source control, docker registry |
+| Grafana            | Pretty Graphs                                 |
+| Influxdb           | Series dB                                     |
+| Kafka              | As a message bus                              |
+| MongoDB            | Document dB                                   |
+| Nautobot           | "Source of truth"                             |
+| RabbitMQ           | Messaging                                     |
+| Redis              | Messaging                                     |
+| TeamCity           | CI/CD                                         |
+| Hashicorp Vault    | Secrets Storage                               |
+
+### What is Available Using Pod-Porter
+
+[Pod-Porter Maps](./porter)
+
+| ARCHITECTURE       | USED FOR                                      |
+|--------------------|-----------------------------------------------|
+| Batfish            | Modeling                                      |
+| ELK Elastic Search | Logging search, various other stuff           |
+| GitLab             | Pipelines and source control, docker registry |
+| Grafana            | Pretty Graphs                                 |
+| Influxdb           | Series dB                                     |
+| Kafka              | As a message bus                              |
+| MongoDB            | Document dB                                   |
+| Nautobot           | "Source of truth"                             |
+| RabbitMQ           | Messaging                                     |
+| Redis              | Messaging                                     |
+| TeamCity           | CI/CD                                         |
+| Hashicorp Vault    | Secrets Storage                               |
+
 ### What is Available in Swarm
 
 | ARCHITECTURE | USED FOR |
