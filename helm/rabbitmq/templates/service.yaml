@@ -1,0 +1,29 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "rabbitmq"
+  {{- if .Release.Namespace | ne "default" }}
+  namespace: {{ .Release.Namespace | quote }}
+  {{- else if .Values.namespace | ne "default" }}
+  namespace: {{ .Values.namespace | quote }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  ports:
+  - port: {{ .Values.service.rabbitmq.port }}            # Port apps in cluster use
+    targetPort: {{ .Values.service.rabbitmq.port }}      # Port to connect to container
+    {{- if .Values.service.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.rabbitmq.nodePort }}    # Port to expose on the nodes
+    {{- end }}
+    protocol: "TCP"
+    name: "rabbitmq"
+  - port: {{ .Values.service.rabbitmqManagement.port }}            # Port apps in cluster use
+    targetPort: {{ .Values.service.rabbitmqManagement.port }}      # Port to connect to container
+    {{- if .Values.service.type | eq "NodePort" }}
+    nodePort: {{ .Values.service.rabbitmqManagement.nodePort }}    # Port to expose on the nodes
+    {{- end }}
+    protocol: "TCP"
+    name: "management"
+  selector:
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}"

@@ -1,0 +1,7 @@
+---
+{{- if .Values.namespace | ne "default" }}
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: {{ .Values.namespace | quote }}
+{{- end}}
