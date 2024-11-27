@@ -1,0 +1,4 @@
+---
+volumes:
+  grafana-data-{{ release.name }}:
+  grafana-logs-{{ release.name }}:

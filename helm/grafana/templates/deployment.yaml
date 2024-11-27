@@ -36,3 +36,15 @@ spec:
             memory: {{ .Values.resources.limits.memory | quote }}
             cpu: {{ .Values.resources.limits.cpu | quote }}
         {{- end}}
+        volumeMounts:
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-data"
+          mountPath: "/var/lib/grafana"
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+          mountPath: "/var/log/grafana"
+      volumes:
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-data"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-data-claim"
+      - name: "{{ .Release.Name }}-{{ .Chart.Name }}-logs"
+        persistentVolumeClaim:
+          claimName: "{{ .Release.Name }}-{{ .Chart.Name }}-logs-claim"

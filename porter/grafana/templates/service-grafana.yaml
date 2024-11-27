@@ -8,3 +8,6 @@ services:
     {% for service in values.service %}
      - "{{ service.node_port }}:{{ service.container_port }}"
     {% endfor %}
+    volumes:
+      - "grafana-data-{{ release.name }}:/var/lib/grafana"
+      - "grafana-logs-{{ release.name }}:/var/log/grafana"
