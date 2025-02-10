@@ -1,0 +1,30 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  nautobot:
+    repository: "ghcr.io/nautobot/nautobot"
+    tag: "2.4.2"
+  postgres:
+    repository: "docker.io/library/postgres"
+    tag: "13-alpine"
+  redis:
+    repository: "docker.io/library/redis"
+    tag: "6-alpine"
+
+config:
+  nautobot_db_name: "nautobot"
+  nautobot_log_level: "WARNING"
+
+secrets:
+  nautobot_redis_password: "changeme"
+  nautobot_db_user: "nautobot"
+  nautobot_db_password: "changeme"
+
+service:
+  nautobot:
+    - node_port: 8080
+      container_port: 8080
+      name: "nautobot"

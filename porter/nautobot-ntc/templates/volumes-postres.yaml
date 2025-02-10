@@ -1,0 +1,3 @@
+---
+volumes:
+  postgres_data_{{ release.name }}: {}
