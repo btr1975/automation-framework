@@ -6,6 +6,10 @@ services:
     environment:
       NAUTOBOT_ALLOWED_HOSTS: "*"
       NAUTOBOT_BANNER_TOP: "{{ values.config.nautobot_banner_top }}"
+      {% if values.config.nautobot_banner_bottom %}
+      NAUTOBOT_BANNER_BOTTOM: "{{ values.config.nautobot_banner_bottom }}"
+      {% endif %}
+      NAUTOBOT_BANNER_LOGIN: "{{ values.config.nautobot_banner_login }}"
       NAUTOBOT_CHANGELOG_RETENTION: 0
       NAUTOBOT_CONFIG: "/opt/nautobot/nautobot_config.py"
       NAUTOBOT_DB_HOST: "nautobot-db-{{ release.name }}"
@@ -37,6 +41,9 @@ services:
       {% if values.config.nautobot_csrf_trusted_origins %}
       NAUTOBOT_CSRF_TRUSTED_ORIGINS: "{{ values.config.nautobot_csrf_trusted_origins }}"
       {% endif %}
+      {% for env in values.secrets.environment %}
+      {{ env.name }}: "{{ env.value }}"
+      {% endfor %}
     ports:
     {% for service in values.service.nautobot %}
      - "{{ service.node_port }}:{{ service.container_port }}"

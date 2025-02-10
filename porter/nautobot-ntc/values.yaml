@@ -18,10 +18,12 @@ config:
   nautobot_db_name: "nautobot"
   nautobot_log_level: "WARNING"
   nautobot_banner_top: "Local"
-  nautobot_create_superuser: "false"
-  nautobot_installation_metrics_enabled: "true"
+  nautobot_banner_bottom: null
+  nautobot_banner_login: "Welcome to Nautobot"
+  nautobot_create_superuser: "false"          # Set to "true" to create a superuser it will use the values from secrets
+  nautobot_installation_metrics_enabled: "false"
   nautobot_cors_allow_all_origins: "true"
-  nautobot_csrf_trusted_origins: null
+  nautobot_csrf_trusted_origins: null        # This is useful if your Nautobot sits behind an Ngnix
 
 secrets:
   nautobot_redis_password: "changeme"
@@ -33,6 +35,11 @@ secrets:
   nautobot_superuser_api_token: "0123456789abcdef0123456789abcdef01234567"
   nautobot_napalm_username: "changeme"
   nautobot_napalm_password: "changeme"
+  environment: [] # This section is to add environmental var secrets in Nautobot if you have none make it an empty list []
+    # - name: "MY_GITHUB_TOKEN"
+    #   value: "changeme"
+    # - name: "MY_GITHUB_USERNAME"
+    #   value: "changeme"
 
 service:
   nautobot:
