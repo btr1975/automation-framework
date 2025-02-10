@@ -17,11 +17,22 @@ image:
 config:
   nautobot_db_name: "nautobot"
   nautobot_log_level: "WARNING"
+  nautobot_banner_top: "Local"
+  nautobot_create_superuser: "false"
+  nautobot_installation_metrics_enabled: "true"
+  nautobot_cors_allow_all_origins: "true"
+  nautobot_csrf_trusted_origins: null
 
 secrets:
   nautobot_redis_password: "changeme"
   nautobot_db_user: "nautobot"
   nautobot_db_password: "changeme"
+  nautobot_superuser_name: "admin"
+  nautobot_superuser_email: "admin@example.com"
+  nautobot_superuser_password: "admin"
+  nautobot_superuser_api_token: "0123456789abcdef0123456789abcdef01234567"
+  nautobot_napalm_username: "changeme"
+  nautobot_napalm_password: "changeme"
 
 service:
   nautobot:
