@@ -9,9 +9,8 @@ services:
      - "{{ service.node_port }}:{{ service.container_port }}"
     {% endfor %}
     environment:
-    {% for env in values.environment_variables.mongo %}
-      {{ env.name }}: "{{ env.value }}"
-    {% endfor %}
+      MONGO_INITDB_ROOT_USERNAME: "{{ values.environment_variables.mongo_db_root_username }}"
+      MONGO_INITDB_ROOT_PASSWORD: "{{ values.environment_variables.mongo_db_root_password }}"
     volumes:
       - "mongo-data-db-{{ release.name }}:/data/db"
       - "mongo-data-configdb-{{ release.name }}:/data/configdb"

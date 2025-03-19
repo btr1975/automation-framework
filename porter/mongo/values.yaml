@@ -23,20 +23,11 @@ service:
 
 
 environment_variables:
-  mongo:
-  - name: "MONGO_INITDB_ROOT_USERNAME"
-    value: "root"
-  - name: "MONGO_INITDB_ROOT_PASSWORD"
-    value: "example"
-  mongo_express:
-  - name: "ME_CONFIG_MONGODB_ADMINUSERNAME"
-    value: "root"
-  - name: "ME_CONFIG_MONGODB_ADMINPASSWORD"
-    value: "example"
-  - name: "ME_CONFIG_BASICAUTH_USERNAME"
-    value: "root"
-  - name: "ME_CONFIG_BASICAUTH_PASSWORD"
-    value: "example"
+  mongo_db_root_username: "root-dsadasd"
+  mongo_db_root_password: "example-dsasdasd"
+  mongo_express_admin_username: "root"
+  mongo_express_admin_password: "example"
 
+# Enable or disable mongo-express service
 options:
   mongo_express_enable: false
