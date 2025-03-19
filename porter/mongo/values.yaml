@@ -23,8 +23,8 @@ service:
 
 
 environment_variables:
-  mongo_db_root_username: "root-dsadasd"
-  mongo_db_root_password: "example-dsasdasd"
+  mongo_db_root_username: "root"
+  mongo_db_root_password: "example"
   mongo_express_admin_username: "root"
   mongo_express_admin_password: "example"
 
