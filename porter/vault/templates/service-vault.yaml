@@ -18,7 +18,11 @@ services:
       VAULT_DEV_ROOT_TOKEN_ID: "{{ values.environment_variables.vault_dev_root_token_id }}"
       VAULT_LOCAL_CONFIG: '{"storage": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true, "cluster_addr": "http://0.0.0.0:8201", "api_addr": "http://0.0.0.0:8200"}'
     {% else %}
+    {% if values.options.vault_mlock %}
       VAULT_LOCAL_CONFIG: '{"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true, "cluster_addr": "http://0.0.0.0:8201", "api_addr": "http://0.0.0.0:8200"}'
+    {% else %}
+      VAULT_LOCAL_CONFIG: '{"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true, "cluster_addr": "http://0.0.0.0:8201", "api_addr": "http://0.0.0.0:8200", "disable_mlock": true}'
+    {% endif %}
     {% endif %}
     volumes:
       - "vault-logs-{{ release.name }}:/vault/logs"
