@@ -1,0 +1,19 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/library/postgres"
+  tag: "13-alpine"
+
+service:
+  - node_port: 5432
+    container_port: 5432
+    name: "postgres"
+
+environmental_variables:
+  postgres_db: "mydatabase"
+  postgres_user: "admin"
+  postgres_password: "example"
+  pgpassword: "example"

@@ -4,6 +4,12 @@ services:
     image: "{{ values.image.repository }}:{{ values.image.tag }}"
     hostname: "redis-{{ release.name }}"
     container_name: "redis-{{ release.name }}"
+    {% if values.options.redis_password %}
+    command:
+      - "sh"
+      - "-c"
+      - "redis-server --appendonly yes --requirepass {{ values.options.redis_password }}"
+    {% endif %}
     ports:
       {% for port in values.service %}
       - "{{ port.node_port }}:{{ port.container_port }}"

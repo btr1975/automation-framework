@@ -1,0 +1,24 @@
+---
+services:
+  postgres-{{ release.name }}:
+    image: "{{ values.image.repository }}:{{ values.image.tag }}"
+    container_name: "postgres-{{ release.name }}"
+    environment:
+      POSTGRES_DB: "{{ values.environmental_variables.postgres_db }}"
+      POSTGRES_USER: "{{ values.environmental_variables.postgres_user }}"
+      POSTGRES_PASSWORD: "{{ values.environmental_variables.postgres_password }}"
+      PGPASSWORD: "{{ values.environmental_variables.pgpassword }}"
+    ports:
+      {% for port in values.service %}
+      - "{{ port.node_port }}:{{ port.container_port }}"
+      {% endfor %}
+    command:
+      - "-c"
+      - "max_connections=1000"
+    volumes:
+      - "postgres-data-{{ release.name }}:/var/lib/postgresql/data"
+    healthcheck:
+      test: "pg_isready --username={{ values.environmental_variables.postgres_user }} --dbname={{ values.environmental_variables.postgres_db }}"
+      interval: "10s"
+      timeout: "5s"
+      retries: 10

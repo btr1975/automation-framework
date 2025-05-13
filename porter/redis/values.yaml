@@ -11,3 +11,7 @@ service:
   - node_port: 6379
     container_port: 6379
     name: "redis"
+
+# These are the options that are passed to the template
+options:
+  redis_password: null  # If set your redis server will require a password to connect
