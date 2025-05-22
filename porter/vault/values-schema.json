@@ -1,0 +1,111 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "values",
+    "description": "Values schema for vault porter",
+    "minCompatiblePorter": "1.1.0",
+    "type": "object",
+    "properties": {
+        "image": {
+            "type": "object",
+            "description": "vault image",
+            "$ref": "#/$defs/image"
+        },
+        "service": {
+            "type": "array",
+            "description": "vault service",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+                "$ref": "#/$defs/service"
+            }
+        },
+        "environment_variables": {
+            "type": "object",
+            "description": "Environment variables",
+            "properties": {
+                "vault_dev_root_token_id": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The vault dev root token id"
+                }
+            },
+            "required": [
+                "vault_dev_root_token_id"
+            ]
+        },
+        "options": {
+            "type": "object",
+            "description": "Options",
+            "properties": {
+                "vault_init": {
+                    "description": "Initialize vault",
+                    "type": "boolean"
+                },
+                "vault_mlock": {
+                    "description": "Enable mlock",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "vault_init",
+                "vault_mlock"
+            ]
+        }
+    },
+    "required": [
+        "image",
+        "service",
+        "environment_variables",
+        "options"
+    ],
+    "$defs": {
+        "image": {
+            "type": "object",
+            "properties": {
+                "repository": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image repository"
+                },
+                "tag": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image tag"
+                }
+            },
+            "required": [
+                "repository",
+                "tag"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "description": "Service",
+            "properties": {
+                "node_port": {
+                    "type": "integer",
+                    "description": "The node port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "container_port": {
+                    "type": "integer",
+                    "description": "The container port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the service"
+                }
+            },
+            "required": [
+                "node_port",
+                "container_port",
+                "name"
+            ]
+        },
+        "string_no_spaces": {
+            "type": "string",
+            "description": "A string without spaces",
+            "pattern": "^\\S+$"
+        }
+    }
+}

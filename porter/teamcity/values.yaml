@@ -15,4 +15,4 @@ service:
   server:
     - node_port: 8111
       container_port: 8111
-      name: "jupyter-notebook"
+      name: "teamcity-server"
