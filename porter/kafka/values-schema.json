@@ -1,0 +1,146 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "values",
+    "description": "Values schema for kafka porter",
+    "minCompatiblePorter": "1.0.0",
+    "type": "object",
+    "properties": {
+        "image": {
+            "type": "object",
+            "description": "teamcity images",
+            "properties": {
+                "registry": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image registry"
+                },
+                "broker": {
+                    "$ref": "#/$defs/image",
+                    "description": "kafka broker image"
+                },
+                "control_center": {
+                    "$ref": "#/$defs/image",
+                    "description": "kafka control_center image"
+                },
+                "rest_proxy": {
+                    "$ref": "#/$defs/image",
+                    "description": "kafka rest_proxy image"
+                },
+                "schema_registry": {
+                    "$ref": "#/$defs/image",
+                    "description": "kafka schema_registry image"
+                },
+                "zookeeper": {
+                    "$ref": "#/$defs/image",
+                    "description": "kafka zookeeper image"
+                }
+            },
+            "required": [
+                "broker",
+                "control_center",
+                "rest_proxy",
+                "schema_registry",
+                "zookeeper"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "description": "kafka service",
+            "properties": {
+                "broker_1": {
+                    "type": "array",
+                    "description": "kafka broker 1 service",
+                    "$ref": "#/$defs/service"
+                },
+                "broker_2": {
+                    "type": "array",
+                    "description": "kafka broker 2 service",
+                    "$ref": "#/$defs/service"
+                },
+                "broker_3": {
+                    "type": "array",
+                    "description": "kafka broker 3 service",
+                    "$ref": "#/$defs/service"
+                },
+                "control_center": {
+                    "type": "array",
+                    "description": "kafka control_center service",
+                    "$ref": "#/$defs/service"
+                },
+                "rest_proxy": {
+                    "type": "array",
+                    "description": "kafka rest_proxy service",
+                    "$ref": "#/$defs/service"
+                },
+                "schema_registry": {
+                    "type": "array",
+                    "description": "kafka schema_registry service",
+                    "$ref": "#/$defs/service"
+                },
+                "zookeeper": {
+                    "type": "array",
+                    "description": "kafka zookeeper service",
+                    "$ref": "#/$defs/service"
+                }
+            },
+            "required": [
+                "broker_1",
+                "broker_2",
+                "broker_3",
+                "control_center",
+                "rest_proxy",
+                "schema_registry",
+                "zookeeper"
+            ]
+        }
+    },
+    "required": [
+        "image",
+        "service"
+    ],
+    "$defs": {
+        "image": {
+            "type": "object",
+            "properties": {
+                "repository": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image repository"
+                },
+                "tag": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image tag"
+                }
+            },
+            "required": [
+                "repository",
+                "tag"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "description": "Service",
+            "properties": {
+                "node_port": {
+                    "type": "integer",
+                    "description": "The node port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "container_port": {
+                    "type": "integer",
+                    "description": "The container port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                }
+            },
+            "required": [
+                "node_port",
+                "container_port"
+            ]
+        },
+        "string_no_spaces": {
+            "type": "string",
+            "description": "A string without spaces",
+            "pattern": "^\\S+$"
+        }
+    }
+}
