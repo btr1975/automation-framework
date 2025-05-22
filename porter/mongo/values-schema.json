@@ -1,0 +1,151 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "values",
+    "description": "Values schema for mongo porter",
+    "minCompatiblePorter": "1.0.1",
+    "type": "object",
+    "properties": {
+        "image": {
+            "type": "object",
+            "description": "image configuration",
+            "properties": {
+                "mongo": {
+                    "type": "object",
+                    "description": "mongo image",
+                    "$ref": "#/$defs/image"
+                },
+                "mongo_express": {
+                    "type": "object",
+                    "description": "mongo express image",
+                    "$ref": "#/$defs/image"
+                }
+            },
+            "required": [
+                "mongo",
+                "mongo_express"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "description": "Services configuration",
+            "properties": {
+                "mongo": {
+                    "type": "array",
+                    "description": "mongo service",
+                    "minItems": 1,
+                    "maxItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/service"
+                    }
+                },
+                "mongo_express": {
+                    "type": "array",
+                    "description": "mongo express service",
+                    "minItems": 1,
+                    "maxItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/service"
+                    }
+                }
+            }
+        },
+        "environment_variables": {
+            "type": "object",
+            "description": "Environment variables",
+            "properties": {
+                "mongo_db_root_username": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "MongoDB root username"
+                },
+                "mongo_db_root_password": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "MongoDB root password"
+                },
+                "mongo_express_admin_username": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "Mongo Express admin username"
+                },
+                "mongo_express_admin_password": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "Mongo Express admin password"
+                }
+            },
+            "required": [
+                "mongo_db_root_username",
+                "mongo_db_root_password",
+                "mongo_express_admin_username",
+                "mongo_express_admin_password"
+            ]
+        },
+        "options": {
+            "type": "object",
+            "description": "Options",
+            "properties": {
+                "mongo_express_enable": {
+                    "type": "boolean",
+                    "description": "Enable Mongo express"
+                }
+            },
+            "required": [
+                "mongo_express_enable"
+            ]
+        }
+    },
+    "required": [
+        "image",
+        "service",
+        "environment_variables",
+        "options"
+    ],
+    "$defs": {
+        "image": {
+            "type": "object",
+            "properties": {
+                "repository": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image repository"
+                },
+                "tag": {
+                    "$ref": "#/$defs/string_no_spaces",
+                    "description": "The image tag"
+                }
+            },
+            "required": [
+                "repository",
+                "tag"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "description": "Service",
+            "properties": {
+                "node_port": {
+                    "type": "integer",
+                    "description": "The node port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "container_port": {
+                    "type": "integer",
+                    "description": "The container port of the service",
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the service"
+                }
+            },
+            "required": [
+                "node_port",
+                "container_port",
+                "name"
+            ]
+        },
+        "string_no_spaces": {
+            "type": "string",
+            "description": "A string without spaces",
+            "pattern": "^\\S+$"
+        }
+    }
+}
