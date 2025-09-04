@@ -1,0 +1,4 @@
+---
+volumes:
+  neo4j-data-{{ release.name }}:
+  neo4j-plugins-{{ release.name }}:

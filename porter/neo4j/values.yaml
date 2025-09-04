@@ -1,0 +1,19 @@
+---
+# This is example values file for the template
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: "docker.io/library/neo4j"
+  tag: "5.26.12"
+
+environment_variables:
+  database_password: "example123"
+
+service:
+  - node_port: 7474
+    container_port: 7474
+    name: "gui-http"
+  - node_port: 7687
+    container_port: 7687
+    name: "bolt"
