@@ -1,0 +1,5 @@
+---
+networks:
+  kafka-network-{{ release.name }}:
+    driver: "bridge"
+    name: "kafka-network-{{ release.name }}"

@@ -11,3 +11,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: "{{ values.service.zookeeper.container_port }}"
       ZOOKEEPER_TICK_TIME: "2000"
       ZOOKEEPER_SERVER_ID: "1"
+    networks:
+      - "kafka-network-{{ release.name }}"
+    x-podman.no_hosts: true
