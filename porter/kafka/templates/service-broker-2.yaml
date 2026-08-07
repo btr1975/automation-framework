@@ -24,3 +24,6 @@ services:
       CONFLUENT_METRICS_ENABLE: "true"
       CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
       CONFLUENT_SCHEMA_REGISTRY_URL: "http://schema-registry-{{ release.name }}:{{ values.service.schema_registry.container_port }}"
+    networks:
+      - "kafka-network-{{ release.name }}"
+    x-podman.no_hosts: true
